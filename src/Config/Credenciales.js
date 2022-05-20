@@ -1,6 +1,7 @@
 /// Importamos la función para inicializar la aplicación de Firebase
 import { initializeApp } from "firebase/app";
 
+// import {getFirestore} from 'firebase/firestore'
 // Añade aquí tus credenciales
 const firebaseConfig = {
     apiKey: "AIzaSyDjemGeMK3dXDNIzqkjiiBEoOreRc2_2oA",

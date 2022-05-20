@@ -1,65 +1,62 @@
 import React, { useState } from 'react'
-import { Grid, Container, Paper, Avatar, Typography, TextField, Button, CssBaseline } from '@mui/material'
+import { Grid, Container, Paper, Avatar, TextField, Button, CssBaseline } from '@mui/material'
 import  firebaseApp from '../../Config/Credenciales';
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 
-import {getFirestore, doc, setDoc, loadBundle} from 'firebase/firestore'
+import {getFirestore, doc, setDoc} from 'firebase/firestore'
 
 const auth = getAuth(firebaseApp);
 
 
 const App = () => {
 	const firestore = getFirestore(firebaseApp);
-	const [User, setUser] = useState({email:"", password:"", rol:"" });
 	const [data, setData] = useState(false);
-	
-
-	const handleChange = e => {
-		setUser({
-			...User,
-			[e.target.name]: e.target.value
-		})
-	}
-
-	const onSubmit =()=> {
-		
-		console.log("Aqui estoy");
-		console.log(User.email);
-		console.log(User.password);
 
 
-		// console.log(firestore);
-
-		// if (User) {
-		// 	// setUser(email,password,rol);
-		// 	entrar();
-		// }else{
-		// 	//entrar
-		// }	
-	}
-
-	async function entrar (email, password	) {
-		const infouser = await createUserWithEmailAndPassword(auth,email,password)
+	async function registrar (email, password, rol	) {
+		const infouser = await createUserWithEmailAndPassword(auth,email, password, rol)
 		.then((usuarioFirebase)=>{
 			return usuarioFirebase;
-		});
-		console.log(infouser);
+		});	
+		// console.log(infouser);
+	
+
+	console.log(infouser.user.uid);	
+	const docuRef = doc(firestore, `usuarios/${infouser.user.uid}`);
+	setDoc(docuRef,{correo: email, rol:rol});	
 	}
+	
 
-	// console.log(infouser.user.uid);
-	// const docuRef = await doc(firestore, `usuarios/${infouser.uid}`);
-	// setDoc(docuRef,{correo: email, rol:rol});
+	function onSubmit(e) {
+	e.preventDefault();
+	const email = e.target.elements.email.value;
+	const password = e.target.elements.password.value;
+	const rol = e.target.elements.rol.value; 
+	console.log("submit", email, password, rol );
 
+	if (data) {		
+		registrar(email, password, rol);
+			}else{
+		 		signInWithEmailAndPassword(auth, email, password);
+		 	}	
+}
+
+
+
+	
 	return (		
-		<Grid container component='main' Style= "padding:150px">
+		<Grid container component='main' >
 			<CssBaseline />		
 			<Container component={Paper} elevation={5} maxWidth='xs' >		
-				<div >				
+				<div >								
 					<Avatar >
-						{/* <LockOutlinedIcon /> */}
 					</Avatar>
-					<Typography component='h1' variant='h5'>Sign In</Typography>					
-					<form >
+					<h1> {data ? "registrar": "Iniciar secion"} </h1>					
+					{/* <Typography component='h1' variant='h5'>Iniciar secion</Typography>				 */}
+
+
+
+					<form  onSubmit={onSubmit}>
 						<TextField
 							fullWidth
 							autoFocus
@@ -67,10 +64,10 @@ const App = () => {
 							margin='normal'
 							variant='outlined'
 							label='email'
-							name='email'
+							// name='email'
 							id='email'
-							value={User.email}
-							onChange={handleChange}
+							// value={User.email}
+							// onChange={handleChange}
 						/>
 						<TextField
 							fullWidth
@@ -79,40 +76,41 @@ const App = () => {
 							margin='normal'
 							variant='outlined'
 							label='Password'
-							name='password'
+							// name='password'
 							id='password'
-							value={User.password}
-							onChange={handleChange}
+							// value={User.password}
+							// onChange={handleChange}
 						/>
 
-						<label>
-							<select id="rol">
-								<option value="Administrador">Admin</option>
-								<option value="Usuario">user</option>								
-							</select>
-
-						</label>
+						<TextField
+							fullWidth
+							autoFocus
+							color='primary'
+							margin='normal'
+							variant='outlined'
+							label=''
+							// name='rol'
+							id='rol'
+							// value={User.rol}
+							// onChange={handleChange}
+						/>
+					
 
 						<Button
+							type="submit"
 							fullWidth
 							variant='contained'
 							color='secondary'	
 							value ={data? "Registar": "Iniciar Secion"}						
-							onClick={() => onSubmit()}													
-						/>
-												
-						{/* <Button
-							fullWidth
-							variant='contained'
-							color='secondary'	
-							
-							 onClick={() => setUser(!User)}>
-							 {User ? "Cueta existe": "quiero registrarme"}													
-						
-						</Button> */}
-
-
+																				
+						>Iniciar secion</Button>													
 					</form>
+
+
+					 
+					<button onClick={()=> setData(!data)}>
+						{data ? "Cueta existe": "quiero registrarme"}	
+					</button>
 				</div>
 			</Container>
 		</Grid>

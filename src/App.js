@@ -4,22 +4,54 @@ import Auth from './pages/Auth';
 import Home from './pages/Home/Home';
 import firebaseApp from './Config/Credenciales';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
-const auth = getAuth(firebaseApp); 
+import {getFirestore, doc, getDoc} from 'firebase/firestore';
 
+const auth = getAuth(firebaseApp); 
+const  firestore = getFirestore(firebaseApp) ;
 
 function App() {
 const [user, setUser] = useState(null);
 
+async function getRol(uid) {
+  const docuRef =  doc(firestore, `usuarios/${uid}`);
+  const docuCifrada = await getDoc (docuRef);
+  const docuFinal = docuCifrada.data().rol;
+  return docuFinal;
+}
+async function setUserWithFirebaseAndRol(usuarioFirebase) {
+  getRol(usuarioFirebase.uid).then((rol)=>{
+    const userData = {
+      uid: usuarioFirebase.uid,
+      email: usuarioFirebase.email,
+      password: usuarioFirebase.password,
+      rol:rol,
+      puesto: usuarioFirebase.puesto,
+      entrada: usuarioFirebase.entrada,
+      salida: usuarioFirebase.salida,
+    };
+    setUser(userData);
+    console.log(userData);
+  });
+}
+
 onAuthStateChanged(auth, (usuarioFirebase) =>{
 
-  if (usuarioFirebase) {
-    setUser(usuarioFirebase);
+  if (usuarioFirebase) {  
+    if (!user) {
+      setUserWithFirebaseAndRol(usuarioFirebase) 
+    }
+
   }else{
     setUser(null);
   }
 });
 
-  return   <> { user ?  <Home/> : <Auth/> }    </>  ;
+  return (  <> 
+  { user ?  <Home  user={user} /> : <Auth/> }    
+    
+    
+
+  </> ) ;
 
 }
 export default App;

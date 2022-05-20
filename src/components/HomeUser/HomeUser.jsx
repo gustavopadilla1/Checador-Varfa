@@ -1,11 +1,17 @@
 import React from 'react'
 
-function HomeUser() {
-  return (
-    <div>
-      <h2>Hola Usuario</h2>
-    </div>
-  )
-}
+import TableUser from '../../components/TableUser';
+// import { Button } from '@mui/material';
 
+
+function HomeUser() {
+
+    return (
+      <div>
+        <h4>Hola Usuario</h4>        
+        <TableUser/>        
+
+      </div>
+    );
+  }
 export default HomeUser
