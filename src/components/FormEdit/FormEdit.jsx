@@ -28,19 +28,20 @@ const FormEdit = () => {
   }
 
   const getUsuariosById = async (id) =>{
-     const usuario_ = await getDoc(doc (db, `usuarios/${id}`))
+    const usuario_ = await getDoc(doc (db, 'usuarios', id));
     // console.log(usuario_.data());
+
     // const usuario_ = doc(db, "usuarios", id)
     
-      if (usuario_.exists()) {
+      if (usuario_.exists()) {        
         console.log(usuario_.data());         
-        // setUsuarios(usuario_.data().usuario)
-        // setCorreo(usuario_.data().correo)
-        // setPassword(usuario_.data().password)
-        // setRol(usuario_.data().rol)
-        // setPuesto(usuario_.data().puesto)
-        // setEntrada(usuario_.data().entrada)
-        // setSalida(usuario_.data().salida)
+        setUsuarios(usuario_.data().usuario)
+        setCorreo(usuario_.data().correo)
+        setPassword(usuario_.data().password)
+        setRol(usuario_.data().rol)
+        setPuesto(usuario_.data().puesto)
+        setEntrada(usuario_.data().entrada)
+        setSalida(usuario_.data().salida)
 
       }else{
         console.log("el usuario no existe");

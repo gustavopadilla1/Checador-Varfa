@@ -6,11 +6,14 @@ import HomeAdmin from '../../components/HomeAdmin/HomeAdmin'
 import HomeUser from '../../components/HomeUser/HomeUser'
 import firebaseApp from '../../Config/Credenciales'
 import {getAuth, signOut} from 'firebase/auth';
+
 const auth = getAuth(firebaseApp);
 
 function Home({user}) {
   return (
+
     <div>   
+
    <div>            
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static"  color='primary'>
@@ -28,7 +31,7 @@ function Home({user}) {
 
                         </IconButton>
                         <Typography variant='h6' component="div" sx={{ flexGrow: 1 }}>                        
-                        Home                        
+                        Home                                                
                         </Typography>
 
                         <Button color="inherit" onClick={()=> signOut(auth)} >
