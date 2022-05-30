@@ -1,7 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Reloj from '../Reloj/Reloj';
 import { collection, addDoc } from 'firebase/firestore' 
 import { db} from '../../Config/firestore';
+
+// import firebaseApp from '../../Config/Credenciales'
+// import {getAuth} from 'firebase/auth';
+
+// const auth = getAuth(firebaseApp);
+
 
 
 import Swal from 'sweetalert2'
@@ -11,7 +17,9 @@ const MySwal = withReactContent(Swal);
 
 const TableUser = () => {
 
+  const [correo , setCorreo] = useState("");
   const [usuario, setUsuarios] = useState("");
+
   const [puesto, setPuesto]= useState("");
   const [entrada, setEntrada]= useState("");
   const [salida, setSalida]= useState("");
@@ -21,9 +29,12 @@ const TableUser = () => {
   const userCollection = collection(db, "usuarios");
 
   const Add = async (e) =>{
-    e.preventDefault();
-    await addDoc (userCollection, {usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, ubicacion:ubicacion})
+
+    e.preventDefault();    
+    
+    await addDoc (userCollection, {correo:correo, usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, ubicacion:ubicacion})
     console.log(e);
+    console.log({usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, ubicacion:ubicacion});
     MySwal.fire({
 			position: 'center',
 			icon: 'success',
@@ -34,7 +45,7 @@ const TableUser = () => {
 		  })
     
   }
-
+ 
 
   const Entrada = async () =>{
    let d = new Date();
@@ -77,17 +88,78 @@ const TableUser = () => {
 
 );
 
-
 alert(d);
 
 setEntrada(
   d =  
   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
 )  
-
-return entrada;
-        
+return  entrada;     
   }
+
+
+
+  const Salida = async () =>{
+    let d = new Date();
+     
+     var dia=new Array(7);
+     dia[0]="Domingo";
+     dia[1]="Lunes";
+     dia[2]="Martes";
+     dia[3]="Miercoles";
+     dia[4]="Jueves";
+     dia[5]="Viernes";
+     dia[6]="Sabado";
+ 
+     var m2 = d.getMonth() + 1;
+     var mesok = (m2 < 10) ? '0' + m2 : m2;
+     var mesok=new Array(12);
+     mesok[0]="Enero";
+     mesok[1]="Febrero";
+     mesok[2]="Marzo";
+     mesok[3]="Abril";
+     mesok[4]="Mayo";
+     mesok[5]="Junio";
+     mesok[6]="Julio";
+     mesok[7]="Agosto";
+     mesok[8]="Septiembre";
+     mesok[9]="Octubre";
+     mesok[10]="Noviembre";
+     mesok[11]="Diciembre";
+        
+       console.log(
+       
+       dia[d.getDay()],
+       d.getDate(),    
+       mesok[d.getMonth()] ,
+       d.getFullYear() ,
+ "- "+
+       d.getHours(),    
+ ': ' +d.getMinutes(),
+ ': ' +d.getSeconds()
+ 
+ );
+ 
+ alert(d);
+ 
+ setSalida(
+   d =  
+   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
+ )  
+ return  salida;     
+   }
+
+
+
+//   const Correo = async ({user}) =>{
+//   setCorreo(
+//     user.email
+//   )   
+//   return correo;
+//  };
+
+
+
 
   return (
     <div>
@@ -147,13 +219,17 @@ return entrada;
     <button className='btn btn-primary'> Ubicacion</button>
   </div>
 
+
   <div className='col-md-12 '>
-  <button onClick={Entrada} value={entrada}  type='submit'  className='btn btn-success float-left'> Entrar</button>    
+  <button onClick={Entrada}  value={entrada}  type='submit'  className='btn btn-success float-left'> Entrar</button>    
+  {/* // dos funciones en un onclick
+      //onclick="funcion1(); funcion2()" */}
+
   </div>
 
-  {/* <div className='col float-md-right '>
-    <button  className='btn btn-success float-md-right'> salida</button>
-  </div> */}
+  <div className='col-md-4 float-md-right '  >
+    <button Style="margin-left:1200px; "  onClick={Salida}  value={salida} className='btn btn-success float-md-right'> salida</button>
+  </div>
 
 </form>
 

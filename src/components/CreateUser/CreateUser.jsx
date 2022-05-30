@@ -15,13 +15,13 @@ const auth = getAuth(firebaseApp);
 
 const CreateUser = () => {
 	const firestore = getFirestore(firebaseApp);
-	const [data, setData] = useState(true);
+	const [data] = useState(true);
 
 	const navigate = useNavigate();
 
 	async function registrar (email, password, rol, usuario, puesto, entrada, salida, motivo, ubicacion) {
 		const infouser = await createUserWithEmailAndPassword(
-            auth,email, password, rol,
+            auth,email, password, rol, usuario
     )
 		.then((usuarioFirebase)=>{
 			return usuarioFirebase;
@@ -61,7 +61,7 @@ const CreateUser = () => {
 			icon: 'success',
 			title: 'Usuario Guardado con exito!!!',
 			showConfirmButton: false,
-			timer: 4000
+			timer: 3000
 		  })
 		navigate('/');
     }else{

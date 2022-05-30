@@ -11,7 +11,7 @@ function HomeAdmin() {
 
     return (
       <div>
-        <h4>Hola administrador</h4>
+        {/* <h4>Hola administrador</h4> */}
         
         <BrowserRouter>
           <Routes>

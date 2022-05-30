@@ -24,6 +24,7 @@ async function setUserWithFirebaseAndRol(usuarioFirebase) {
       uid: usuarioFirebase.uid,
       email: usuarioFirebase.email,
       password: usuarioFirebase.password,
+      usuario: usuarioFirebase.usuario,
       rol:rol,
       puesto: usuarioFirebase.puesto,
       entrada: usuarioFirebase.entrada,

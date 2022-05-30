@@ -11,7 +11,7 @@ const MySwal = withReactContent(Swal);
 const TableAdmin = () => {
 const [usuarios, setUsuarios] = useState([]);
 const [search , setSearch] = useState("");
-const [usuario, setUsuario] = useState([]);
+
 
 
 const usuariosCollection = collection(db, "usuarios" )
@@ -23,8 +23,7 @@ const getUsuarios = async() => {
       data.docs.map((doc)=> ({...doc.data(), id: doc.id}))        
       )
       console.log(usuarios) 
-      console.log(usuarios[0].usuario);    
-      console.log(usuarios[0].entrada.nanoseconds);    
+       
 
 }
 
@@ -93,6 +92,7 @@ useEffect( () => {
       <th scope="col">Usuario</th>
       <th scope="col">Correo</th>
       <th scope="col">Rol</th>
+      <th scope="col">Contraseña</th>
       <th scope="col">puesto</th>
       <th scope="col">Estado</th>
       <th scope="col">Ubicacion</th>
@@ -114,7 +114,8 @@ useEffect( () => {
         <tr key={usuario.id}>
           <td> {usuario.usuario}</td>
           <td> {usuario.correo}</td>
-          <td>{usuario.rol}</td>          
+          <td>{usuario.rol}</td>
+          <td>{usuario.password}</td>          
           <td>{usuario.puesto}</td>
           <td>{usuario.motivo}</td>
           <td>{usuario.ubicacion}</td>

@@ -10,7 +10,7 @@ const auth = getAuth(firebaseApp);
 
 const App = () => {
 	const firestore = getFirestore(firebaseApp);
-	const [data, setData] = useState(false);
+	const [data] = useState(false);
 
 
 	async function registrar (email, password, rol	) {
@@ -32,6 +32,7 @@ const App = () => {
 	const email = e.target.elements.email.value;
 	const password = e.target.elements.password.value;
 	const rol = e.target.elements.rol.value; 
+
 	console.log("submit", email, password, rol );
 
 	if (data) {		
@@ -81,21 +82,12 @@ const App = () => {
 							// value={User.password}
 							// onChange={handleChange}
 						/>
-
-						<TextField
-							fullWidth
-							autoFocus
-							color='primary'
-							margin='normal'
-							variant='outlined'
-							label=''
-							// name='rol'
-							id='rol'
-							// value={User.rol}
-							// onChange={handleChange}
-						/>
-					
-
+<div Style="Font-Size:0px">
+						<TextField 
+							size='0px'
+							id='rol'							
+					/>		
+		</div>
 						<Button
 							type="submit"
 							fullWidth
@@ -108,9 +100,9 @@ const App = () => {
 
 
 					 
-					<button onClick={()=> setData(!data)}>
+					{/* <button onClick={()=> setData(!data)}>
 						{data ? "Cueta existe": "quiero registrarme"}	
-					</button>
+					</button> */}
 				</div>
 			</Container>
 		</Grid>

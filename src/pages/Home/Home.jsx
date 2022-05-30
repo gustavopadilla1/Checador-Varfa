@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { AppBar, Toolbar, Typography, Box, IconButton, Button } from '@mui/material';
 
 import HomeAdmin from '../../components/HomeAdmin/HomeAdmin'
@@ -8,13 +7,13 @@ import firebaseApp from '../../Config/Credenciales'
 import {getAuth, signOut} from 'firebase/auth';
 
 const auth = getAuth(firebaseApp);
+// const credentials = localstorage.getItem('credentials');
 
 function Home({user}) {
+
   return (
-
     <div>   
-
-   <div>            
+        <div>            
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static"  color='primary'>
                 {/* <AppBar position="fixed" color='primary'> */}
@@ -50,8 +49,13 @@ function Home({user}) {
             </Box>
         </div>
 
-      <h2>Bienvenido</h2>        
+        <div Style="margin:20px;">
+      <h4>Bienvenido: {user.email}</h4> 
+      <h6     >{user.rol}</h6>
+
+
         {user.rol==="Administrador" ? <HomeAdmin/>: <HomeUser/>}
+        </div>
     </div>
   )
 }
