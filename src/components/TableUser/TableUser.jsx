@@ -17,14 +17,20 @@ const MySwal = withReactContent(Swal);
 
 const TableUser = () => {
 
-  const [correo , setCorreo] = useState("");
+  const [correo ,] = useState("");
   const [usuario, setUsuarios] = useState("");
 
   const [puesto, setPuesto]= useState("");
   const [entrada, setEntrada]= useState("");
   const [salida, setSalida]= useState("");
   const [motivo, setMotivo] = useState("");
-  const [ubicacion, setubicacion] = useState("");
+  const [comentario, setComentario] = useState("");
+  const [ubicacion, ] = useState("");
+
+
+  const [btnEntrada, setBtnEntrada ] = useState(true);
+  const [btnSalida, setBtnSalida ] = useState(false);
+
 
   const userCollection = collection(db, "usuarios");
 
@@ -32,14 +38,13 @@ const TableUser = () => {
 
     e.preventDefault();    
     
-    await addDoc (userCollection, {correo:correo, usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, ubicacion:ubicacion})
+    await addDoc (userCollection, {correo:correo, usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion})
     console.log(e);
-    console.log({usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, ubicacion:ubicacion});
+    console.log({usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion});
     MySwal.fire({
 			position: 'center',
 			icon: 'success',
-			title: 'Bienvenido',
-      title: 'Registro hecho con exito !!!',
+			title: 'Bienvenido Registro hecho con exito !!!',
 			showConfirmButton: false,
 			timer: 2500
 		  })
@@ -61,7 +66,7 @@ const TableUser = () => {
 
     var m2 = d.getMonth() + 1;
     var mesok = (m2 < 10) ? '0' + m2 : m2;
-    var mesok=new Array(12);
+    mesok=new Array(12);
     mesok[0]="Enero";
     mesok[1]="Febrero";
     mesok[2]="Marzo";
@@ -94,7 +99,11 @@ setEntrada(
   d =  
   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
 )  
-return  entrada;     
+
+if (btnEntrada === true ) {
+  btnSalida = false;  
+}
+      return  entrada;  
   }
 
 
@@ -113,7 +122,7 @@ return  entrada;
  
      var m2 = d.getMonth() + 1;
      var mesok = (m2 < 10) ? '0' + m2 : m2;
-     var mesok=new Array(12);
+    mesok=new Array(12);
      mesok[0]="Enero";
      mesok[1]="Febrero";
      mesok[2]="Marzo";
@@ -163,35 +172,41 @@ return  entrada;
 
   return (
     <div>
+      
       <Reloj/> 
 
-      <form 
+      <form  className="was-validated"
       onSubmit={Add}
       >
 
   <br/><br/>
   
   
-        <div className="row mb-3 justify-content-center" >
-    <label className="col-sm-1 col-form-label">Usuario:</label>
+        <div className="row mb-1 justify-content-center" >
+    <label className="col-sm-1 col-form-label"   >Usuario:</label>
     <div className="col-sm-7">
     <input
                         value={usuario}
                         onChange ={(e)=> setUsuarios(e.target.value)}
                         type='text'
-                        className='form-control'
+                        className='form-control is-invalid' 
+                        
+                        required
                     />
+    {/* <div class="invalid-feedback">
+      Por favor escribe tu usuario 
+    </div> */}
+
     </div>
     </div>
     
-
-
-    <div className="row mb-3 justify-content-center"   >
+    <div className="row mb-1 justify-content-center"   >
     <label className="col-sm-1 col-form-label">puesto</label>
     <div className="col-sm-7">
 
-						<select  value={puesto}  onChange ={(e)=> setPuesto(e.target.value)}  className="form-select form-select-lg mb-3" aria-label=".form-select-md example" >
+						<select  value={puesto}  onChange ={(e)=> setPuesto(e.target.value)}  className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
 						
+            <option></option>
 						<option>Sistemas</option>
 						<option>Contador</option>
 						<option>R.H</option>
@@ -202,11 +217,12 @@ return  entrada;
     </div>
 
     
-    <div className="row mb-3 justify-content-center"  >
+    <div className="row mb-1 justify-content-center"  >
     <label className="col-sm-1 col-form-label">Estado</label>
     <div className="col-sm-7">
-    <select value={motivo}  onChange ={(e)=> setMotivo(e.target.value)} className="form-select form-select-lg mb-3" aria-label=".form-select-md example" >
+    <select value={motivo}  onChange ={(e)=> setMotivo(e.target.value)} className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
 						
+            <option></option>
 						<option>Home Oficce</option>
 						<option>Oficina</option>
 						<option>Visita de un cliente</option>					
@@ -215,24 +231,63 @@ return  entrada;
     </div>
     </div>
 
+    <div className="row mb-1 justify-content-center form-floating" >
+    <div className="col-sm-4">
+    <textarea              
+                        placeholder="Deseas colocar un comentario: (opcional)"
+                        value={comentario}
+                        onChange ={(e)=> setComentario(e.target.value)}
+                        type='text'
+                        className='form-control is-invalid'
+                        
+                    />
+    </div>
+    </div>
+
+
+
+
   <div className='col-md-12 text-center'>    
     <button className='btn btn-primary'> Ubicacion</button>
   </div>
 
 
+
+
   <div className='col-md-12 '>
-  <button onClick={Entrada}  value={entrada}  type='submit'  className='btn btn-success float-left'> Entrar</button>    
-  {/* // dos funciones en un onclick
-      //onclick="funcion1(); funcion2()" */}
+  <button 
+    id='btnEntrada'
+    Style="padding:15px; padding-left:35px;"  
+    onClick={Entrada}  
+    value={entrada}  
+    type='submit'  
+    className='btn btn-success float-left'  
+    // onClick={btnEntrada}
+    disabled={!btnEntrada }
+  > 
 
+    Entrar
+
+  </button>    
+  
+
+    <button 
+    id='btnSalida'
+    Style="margin-left:1200px; padding:15px; padding-left:35px; "  
+    onClick={Salida}  
+    value={salida} 
+    className='btn btn-success float-md-right'
+    disabled={btnSalida }
+    // onClick={btnsalida}             
+      > 
+      
+    salida
+
+    </button>
+    
+    
   </div>
-
-  <div className='col-md-4 float-md-right '  >
-    <button Style="margin-left:1200px; "  onClick={Salida}  value={salida} className='btn btn-success float-md-right'> salida</button>
-  </div>
-
 </form>
-
 
     </div>
   )

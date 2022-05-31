@@ -70,7 +70,7 @@ const CreateUser = () => {
 }
 
 	return (		
-		<Grid container component='main' >
+		<Grid container component='main'  className="was-validated">
 			
 			<Container component={Paper}  elevation={20} maxWidth='md' >		
 				<div >											
@@ -115,7 +115,7 @@ const CreateUser = () => {
 						<br></br>
 						<label>Rol</label>
 						<select onchange={'onSubmit (e)'} id='rol' className="form-select form-select-lg mb-3" aria-label=".form-select-md example">
-						
+												
 						<option>Usuario</option>
 						<option>Administrador</option>						
 						</select>

@@ -50,7 +50,7 @@ function Home({user}) {
         </div>
 
         <div Style="margin:20px;">
-      <h4>Bienvenido: {user.email}</h4> 
+      <h5>Bienvenido: {user.email}</h5> 
       <h6     >{user.rol}</h6>
 
 

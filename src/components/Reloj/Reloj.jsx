@@ -3,7 +3,7 @@ import React from 'react'
 function Reloj() {
     
     function FormattedDate(props) {
-        return <h4>  {props.date.toLocaleTimeString()}.</h4>;
+        return <h5>  {props.date.toLocaleTimeString()}.</h5>;
       }
       
       class Clock extends React.Component {
@@ -40,9 +40,18 @@ function Reloj() {
       }
 
   return (
-    <div id='App'>
+    <div id='App' 
+    Style="margin-left:1215px;
+    padding: 10px;
+    border-width: 10px;
+    background-color: #52E396;
+    border-radius: 50% "
+    >
+
         {/* <h2>Reloj:</h2> */}
-        <Clock />      
+        <Clock 
+        
+        />      
     </div>
   )
 }

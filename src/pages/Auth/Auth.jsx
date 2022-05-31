@@ -46,9 +46,9 @@ const App = () => {
 
 	
 	return (		
-		<Grid container component='main' >
+		<Grid container component='main'  Style="margin:30px; padding:50px;">
 			<CssBaseline />		
-			<Container component={Paper} elevation={5} maxWidth='xs' >		
+			<Container component={Paper} elevation={4} maxWidth='xs' >		
 				<div >								
 					<Avatar >
 					</Avatar>
@@ -82,12 +82,13 @@ const App = () => {
 							// value={User.password}
 							// onChange={handleChange}
 						/>
-<div Style="Font-Size:0px">
+
+			<div Style="Font-Size:0px">
 						<TextField 
-							size='0px'
+						Style="padding:-100px; margin:-100px; border 0px"							
 							id='rol'							
 					/>		
-		</div>
+			</div>
 						<Button
 							type="submit"
 							fullWidth

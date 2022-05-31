@@ -4,9 +4,9 @@ import { collection, getDocs,  deleteDoc, doc} from 'firebase/firestore'
 import {db}  from '../../Config/firestore';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-const MySwal = withReactContent(Swal);
+// import Swal from 'sweetalert2'
+// import withReactContent from 'sweetalert2-react-content'
+// const MySwal = withReactContent(Swal);
 
 const TableAdmin = () => {
 const [usuarios, setUsuarios] = useState([]);
@@ -51,18 +51,14 @@ const deleteUser = async (id)=>{
     getUsuarios();
 }
  
-useEffect( () => {
+useEffect(() => {
     getUsuarios()
-} , [] )
-
-
-
-
+}, [])
 
 
   return (
     <div>
-<div align='center'>
+  <div align='center'>
  <ReactHTMLTableToExcel
   id = 'BotonExportarExcel'
   className = "btn btn-success"
@@ -98,11 +94,13 @@ useEffect( () => {
       <th scope="col">Ubicacion</th>
       <th scope="col">Hora de Entrada</th>
       <th scope="col">Hora de Salida</th>
+      <th scope="col">Comentarios</th>
+
       <th scope="col">Accion</th>    
     </tr>
   </thead>
-  <tbody>
-    {usuarios.filter((usuario)=>{
+  <tbody>    
+    {usuarios.filter(usuario => {
       if (search === "") {
         return usuario;
       }else if ((usuario.usuario  || usuario.salida || usuario.rol || usuario.puesto || usuario.motivo)
@@ -127,6 +125,8 @@ useEffect( () => {
           ))}  */}
 
           <td>{usuario.salida}</td> 
+          <td>{usuario.comentario}</td> 
+          
           <td>
             {/* <Link to={`/FormEdit/${usuario.id}`} className = "btn btn-primary" >Editar</Link> */}
             {/* <FontAwesomeIcon icon="fa-solid fa-trash-can" /> */}
