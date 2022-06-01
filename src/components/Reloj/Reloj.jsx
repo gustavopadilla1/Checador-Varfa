@@ -41,7 +41,8 @@ function Reloj() {
 
   return (
     <div id='App' 
-    Style="margin-left:1215px;
+    className='float-end'
+    Style="
     padding: 10px;
     border-width: 10px;
     background-color: #52E396;
@@ -52,6 +53,7 @@ function Reloj() {
         <Clock 
         
         />      
+        
     </div>
   )
 }

@@ -52,7 +52,7 @@ const App = () => {
 				<div >								
 					<Avatar >
 					</Avatar>
-					<h1> {data ? "registrar": "Iniciar secion"} </h1>					
+					<h1> {data ? "registrar": "Iniciar Sesión"} </h1>					
 					{/* <Typography component='h1' variant='h5'>Iniciar secion</Typography>				 */}
 
 
@@ -85,10 +85,11 @@ const App = () => {
 
 			<div Style="Font-Size:0px">
 						<TextField 
-						Style="padding:-100px; margin:-100px; border 0px"							
-							id='rol'							
+								Style="padding:-100px; margin:-100px; border 0px"							
+								id='rol'							
 					/>		
 			</div>
+
 						<Button
 							type="submit"
 							fullWidth

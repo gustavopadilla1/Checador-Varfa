@@ -155,7 +155,7 @@ const CreateUser = () => {
 						<label>Estado</label>
 						<select onchange={'onSubmit (e)'} id='motivo' className="form-select form-select-lg mb-3" aria-label=".form-select-md example" >
 						
-						<option>Home Oficce</option>
+						<option>Home Office</option>
 						<option>Oficina</option>
 						<option>Visita de un cliente</option>					
 						</select>

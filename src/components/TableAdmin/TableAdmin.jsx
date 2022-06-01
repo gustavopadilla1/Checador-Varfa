@@ -91,12 +91,12 @@ useEffect(() => {
       <th scope="col">Contraseña</th>
       <th scope="col">puesto</th>
       <th scope="col">Estado</th>
-      <th scope="col">Ubicacion</th>
+      <th scope="col">Ubicación</th>
       <th scope="col">Hora de Entrada</th>
       <th scope="col">Hora de Salida</th>
       <th scope="col">Comentarios</th>
 
-      <th scope="col">Accion</th>    
+      <th scope="col">Acción</th>    
     </tr>
   </thead>
   <tbody>    

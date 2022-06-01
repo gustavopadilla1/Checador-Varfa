@@ -28,8 +28,10 @@ const TableUser = () => {
   const [ubicacion, ] = useState("");
 
 
-  const [btnEntrada, setBtnEntrada ] = useState(true);
-  const [btnSalida, setBtnSalida ] = useState(false);
+  
+  const [ocultarBoton, setOcultarBoton] = React.useState(false);
+
+        
 
 
   const userCollection = collection(db, "usuarios");
@@ -53,7 +55,8 @@ const TableUser = () => {
  
 
   const Entrada = async () =>{
-   let d = new Date();
+
+    let d = new Date();
     
     var dia=new Array(7);
     dia[0]="Domingo";
@@ -98,11 +101,18 @@ alert(d);
 setEntrada(
   d =  
   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
+
 )  
 
-if (btnEntrada === true ) {
-  btnSalida = false;  
-}
+// setBtnEntrada(
+//       btnSalida = true
+//     )
+
+
+// if (btnEntrada === true ) {
+//   btnSalida = false;  
+// }
+setOcultarBoton(true);
       return  entrada;  
   }
 
@@ -155,6 +165,8 @@ if (btnEntrada === true ) {
    d =  
    dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
  )  
+//  setOcultarBoton(false);
+
  return  salida;     
    }
 
@@ -174,6 +186,7 @@ if (btnEntrada === true ) {
     <div>
       
       <Reloj/> 
+      <br></br>
 
       <form  className="was-validated"
       onSubmit={Add}
@@ -222,8 +235,8 @@ if (btnEntrada === true ) {
     <div className="col-sm-7">
     <select value={motivo}  onChange ={(e)=> setMotivo(e.target.value)} className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
 						
-            <option></option>
-						<option>Home Oficce</option>
+            <option></option>            
+						<option>Home Office</option>
 						<option>Oficina</option>
 						<option>Visita de un cliente</option>					
 						</select>
@@ -238,14 +251,10 @@ if (btnEntrada === true ) {
                         value={comentario}
                         onChange ={(e)=> setComentario(e.target.value)}
                         type='text'
-                        className='form-control is-invalid'
-                        
+                        className='form-control is-invalid'                        
                     />
     </div>
     </div>
-
-
-
 
   <div className='col-md-12 text-center'>    
     <button className='btn btn-primary'> Ubicacion</button>
@@ -253,8 +262,11 @@ if (btnEntrada === true ) {
 
 
 
+  
+    
+    <div className='col-md-12 '>
 
-  <div className='col-md-12 '>
+{/* {!ocultarBoton ? */}
   <button 
     id='btnEntrada'
     Style="padding:15px; padding-left:35px;"  
@@ -263,30 +275,40 @@ if (btnEntrada === true ) {
     type='submit'  
     className='btn btn-success float-left'  
     // onClick={btnEntrada}
-    disabled={!btnEntrada }
+    
   > 
-
     Entrar
+  </button>  
+    
+    {/* :
 
-  </button>    
+    <></>
+}
+     */}
   
 
-    <button 
-    id='btnSalida'
-    Style="margin-left:1200px; padding:15px; padding-left:35px; "  
-    onClick={Salida}  
-    value={salida} 
-    className='btn btn-success float-md-right'
-    disabled={btnSalida }
-    // onClick={btnsalida}             
-      > 
-      
-    salida
+  {!ocultarBoton ?
+    
+    <></>
+    
+    :
 
-    </button>
+     <button 
+     id='btnSalida'
+     Style="padding:15px; padding-left:35px;"  
+     onClick={Salida}  
+     value={salida} 
+     className='btn btn-success float-end'
+     
+     // onClick={btnsalida}             
+       >       
+     salida
+     </button>  
     
-    
+    }
+
   </div>
+
 </form>
 
     </div>
