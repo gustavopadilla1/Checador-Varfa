@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { Grid, Container, Paper, Avatar, TextField, Button, CssBaseline } from '@mui/material'
 import  firebaseApp from '../../Config/Credenciales';
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from 'firebase/auth';
-
 import {getFirestore, doc, setDoc} from 'firebase/firestore'
+import Appbar from '../../components/Appbar';
 
 const auth = getAuth(firebaseApp);
-
 
 const App = () => {
 	const firestore = getFirestore(firebaseApp);
@@ -46,6 +45,10 @@ const App = () => {
 
 	
 	return (		
+	
+	<>
+		<Appbar/>
+		
 		<Grid container component='main'  Style="margin:30px; padding:50px;">
 			<CssBaseline />		
 			<Container component={Paper} elevation={4} maxWidth='xs' >		
@@ -97,17 +100,20 @@ const App = () => {
 							color='secondary'	
 							value ={data? "Registar": "Iniciar Secion"}						
 																				
-						>Iniciar secion</Button>													
+						>Iniciar sesion</Button>													
 					</form>
 
-
-					 
+								
 					{/* <button onClick={()=> setData(!data)}>
 						{data ? "Cueta existe": "quiero registrarme"}	
 					</button> */}
 				</div>
+				
+				
 			</Container>
+			
 		</Grid>
+	</>
 	)
 }
 

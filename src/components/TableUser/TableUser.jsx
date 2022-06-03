@@ -27,8 +27,6 @@ const TableUser = () => {
   const [comentario, setComentario] = useState("");
   const [ubicacion, ] = useState("");
 
-
-  
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
 
         
@@ -217,7 +215,10 @@ setOcultarBoton(true);
     <label className="col-sm-1 col-form-label">puesto</label>
     <div className="col-sm-7">
 
-						<select  value={puesto}  onChange ={(e)=> setPuesto(e.target.value)}  className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
+						<select  value={puesto}  
+                      onChange ={(e)=> setPuesto(e.target.value)}  
+                      className="form-select form-select-lg mb-3 is-invalid" 
+                      aria-label=".form-select-md example" required>
 						
             <option></option>
 						<option>Sistemas</option>
@@ -274,7 +275,6 @@ setOcultarBoton(true);
     value={entrada}  
     type='submit'  
     className='btn btn-success float-left'  
-    // onClick={btnEntrada}
     
   > 
     Entrar
@@ -288,7 +288,7 @@ setOcultarBoton(true);
   
 
   {!ocultarBoton ?
-    
+      
     <></>
     
     :
@@ -299,9 +299,7 @@ setOcultarBoton(true);
      onClick={Salida}  
      value={salida} 
      className='btn btn-success float-end'
-     
-     // onClick={btnsalida}             
-       >       
+      >       
      salida
      </button>  
     

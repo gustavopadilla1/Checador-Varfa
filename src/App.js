@@ -1,17 +1,21 @@
 import './App.css';
 import React, {useState } from 'react'
-import Auth from './pages/Auth';
+import AUTH from './pages/Auth';
 import Home from './pages/Home/Home';
+
+
 import firebaseApp from './Config/Credenciales';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
 import {getFirestore, doc, getDoc} from 'firebase/firestore';
+import AuthGoogle from './pages/AuthGoogle';
+
 
 const auth = getAuth(firebaseApp); 
 const  firestore = getFirestore(firebaseApp) ;
 
 function App() {
-const [user, setUser] = useState(null);
-
+  const [user, setUser] = useState(null);
+  
 async function getRol(uid) {
   const docuRef =  doc(firestore, `usuarios/${uid}`);
   const docuCifrada = await getDoc (docuRef);
@@ -47,8 +51,12 @@ onAuthStateChanged(auth, (usuarioFirebase) =>{
   }
 });
 
-  return (  <> 
-  { user ?  <Home  user={user} /> : <Auth/> }    
+  return (  
+  <> 
+ 
+ 
+ 
+  { user ?  <Home  user={user} /> : <AUTH/> }    
     
     
 
