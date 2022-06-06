@@ -41,16 +41,20 @@ function Reloj() {
 
   return (
     <div id='App' 
-    className='float-end'
+    className='d-flex justify-content-center'
     Style="
     padding: 10px;
     border-width: 10px;
-    background-color: #52E396;
+
     border-radius: 50% "
     >
 
         {/* <h2>Reloj:</h2> */}
+        
         <Clock 
+
+        className='d-flex justify-content-center'
+
         
         />      
         

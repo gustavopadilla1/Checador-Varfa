@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, Container, Paper,TextField, Button} from '@mui/material'
 import  firebaseApp from '../../Config/Credenciales';
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
 import {useNavigate} from 'react-router-dom'
 import {getFirestore, doc, setDoc} from 'firebase/firestore'
 
@@ -19,9 +19,9 @@ const CreateUser = () => {
 
 	const navigate = useNavigate();
 
-	async function registrar (email, password, rol, usuario, puesto, entrada, salida, motivo, ubicacion) {
+	async function registrar (email, rol, usuario, puesto, entrada, salida, motivo, ubicacion) {
 		const infouser = await createUserWithEmailAndPassword(
-            auth,email, password, rol, usuario
+            auth,email, rol, usuario
     )
 		.then((usuarioFirebase)=>{
 			return usuarioFirebase;
@@ -32,7 +32,7 @@ const CreateUser = () => {
 	console.log(infouser.user.uid);	
 	const docuRef = doc(firestore, `usuarios/${infouser.user.uid}`);
 	setDoc(docuRef,{
-        correo: email, rol:rol, password: password, usuario: usuario, 
+        correo: email, rol:rol, usuario: usuario, 
         puesto: puesto, entrada: entrada, salida: salida, motivo: motivo, ubicacion: ubicacion
     });	
 	}
@@ -41,7 +41,7 @@ const CreateUser = () => {
 	function onSubmit(e) {
 	e.preventDefault();
 	const email = e.target.elements.email.value;
-	const password = e.target.elements.password.value;	
+	// const password = e.target.elements.password.value;	
 	const rol = e.target.elements.rol.value; 	
     const usuario = e.target.elements.usuario.value;
     const puesto = e.target.elements.puesto.value;
@@ -52,10 +52,10 @@ const CreateUser = () => {
 
     
 	
-	console.log("submit",email, password, rol, usuario, puesto, entrada, salida, motivo, ubicacion  );
+	console.log("submit",email, rol, usuario, puesto, entrada, salida, motivo, ubicacion  );
 
 	if (data) {		
-		registrar(email, password, rol, usuario, puesto, entrada, salida, motivo, ubicacion );
+		registrar(email, rol, usuario, puesto, entrada, salida, motivo, ubicacion );
 		MySwal.fire({
 			position: 'center',
 			icon: 'success',
@@ -64,9 +64,7 @@ const CreateUser = () => {
 			timer: 3000
 		  })
 		navigate('/');
-    }else{
-        signInWithEmailAndPassword(auth, email, password);
-    }	
+    }
 }
 
 	return (		
@@ -102,7 +100,7 @@ const CreateUser = () => {
 							id='email'	
 							// placeholder="name@example.com"						
 						/>
-						<TextField
+						{/* <TextField
 							fullWidth
 							type='password'
 							color='primary'
@@ -110,19 +108,22 @@ const CreateUser = () => {
 							variant='outlined'
 							label='Password'							
 							id='password'
-						/>
+						/> */}
 
 						<br></br>
 						<label>Rol</label>
 						<select onchange={'onSubmit (e)'} id='rol' className="form-select form-select-lg mb-3" aria-label=".form-select-md example">
 												
-						<option>Usuario</option>
-						<option>Administrador</option>						
+						<option></option>
+						{/* <option>Usuario</option> */}
+						<option>Gerente</option>
+						<option>Colaborador</option>						
 						</select>
 											
 						<label>Puesto</label>
 						<select onchange={'onSubmit (e)'} id='puesto' className="form-select form-select-lg mb-3" aria-label=".form-select-md example" >
 						
+						<option></option>
 						<option>Sistemas</option>
 						<option>Contador</option>
 						<option>R.H</option>

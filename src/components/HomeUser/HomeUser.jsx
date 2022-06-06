@@ -7,7 +7,7 @@ import TableUser from '../../components/TableUser';
 // import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
 
-function HomeUser() {
+function HomeUser({user}) {
 
     return (
       <div>
@@ -21,7 +21,7 @@ function HomeUser() {
       </Routes>
     </BrowserRouter> */}
 
-        <TableUser/>        
+        <TableUser user = {user}/>        
 
       </div>
     );

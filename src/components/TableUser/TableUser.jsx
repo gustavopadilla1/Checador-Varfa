@@ -14,10 +14,9 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal);
 
+const TableUser = ({user}) => {
 
-const TableUser = () => {
-
-  const [correo ,] = useState("");
+  const [correo, setCorreo] = useState("");
   const [usuario, setUsuarios] = useState("");
 
   const [puesto, setPuesto]= useState("");
@@ -30,15 +29,13 @@ const TableUser = () => {
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
 
         
-
-
   const userCollection = collection(db, "usuarios");
 
   const Add = async (e) =>{
 
     e.preventDefault();    
     
-    await addDoc (userCollection, {correo:correo, usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion})
+    await addDoc (userCollection, {correo:correo, usuario: user.usuario, puesto:user['AREA FUNCIONAL'], entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion})
     console.log(e);
     console.log({usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion});
     MySwal.fire({
@@ -169,17 +166,6 @@ setOcultarBoton(true);
    }
 
 
-
-//   const Correo = async ({user}) =>{
-//   setCorreo(
-//     user.email
-//   )   
-//   return correo;
-//  };
-
-
-
-
   return (
     <div>
       
@@ -190,20 +176,42 @@ setOcultarBoton(true);
       onSubmit={Add}
       >
 
-  <br/><br/>
-  
-  
+  <br/>
+
+
         <div className="row mb-1 justify-content-center" >
     <label className="col-sm-1 col-form-label"   >Usuario:</label>
     <div className="col-sm-7">
     <input
-                        value={usuario}
-                        onChange ={(e)=> setUsuarios(e.target.value)}
+    
+                        value={user.usuario}                      
+                        onChange ={()=> setUsuarios(user.usuario)}  
+
+                        // placeholder ={(e)=> setUsuarios(e.target.value)}
                         type='text'
-                        className='form-control is-invalid' 
-                        
-                        required
+                        className='form-control '                                                 
                     />
+                    
+    {/* <div class="invalid-feedback">
+      Por favor escribe tu usuario 
+    </div> */}
+
+    </div>
+    </div>
+
+    <div className="row mb-1 justify-content-center" >
+    <label className="col-sm-1 col-form-label"   >Email:</label>
+    <div className="col-sm-7">
+    <input
+    
+                        value={user.email}                      
+                        onChange ={()=> setCorreo(user.email)}  
+
+                        // placeholder ={(e)=> setUsuarios(e.target.value)}
+                        type='text'
+                        className='form-control '                                                 
+                    />
+                    
     {/* <div class="invalid-feedback">
       Por favor escribe tu usuario 
     </div> */}
@@ -212,21 +220,17 @@ setOcultarBoton(true);
     </div>
     
     <div className="row mb-1 justify-content-center"   >
-    <label className="col-sm-1 col-form-label">puesto</label>
+    <label className="col-sm-1 col-form-label">Area</label>
     <div className="col-sm-7">
 
-						<select  value={puesto}  
-                      onChange ={(e)=> setPuesto(e.target.value)}  
-                      className="form-select form-select-lg mb-3 is-invalid" 
-                      aria-label=".form-select-md example" required>
-						
-            <option></option>
-						<option>Sistemas</option>
-						<option>Contador</option>
-						<option>R.H</option>
-						<option>Mantenimiento</option>
-						<option>Limpieza</option>
-						</select>
+						<input  value={user['AREA FUNCIONAL']}  
+                      onChange ={()=> setPuesto(user['AREA FUNCIONAL'])}                        
+                      type='text'
+                      className='form-control '
+                      
+                      />
+					
+        
     </div>
     </div>
 
@@ -257,15 +261,18 @@ setOcultarBoton(true);
     </div>
     </div>
 
-  <div className='col-md-12 text-center'>    
+  {/* <div className='col-md-12 text-center'>    
     <button className='btn btn-primary'> Ubicacion</button>
-  </div>
+  </div> */}
 
 
 
-  
-    
-    <div className='col-md-12 '>
+<br/><br/>
+
+   
+{/* d-flex justify-content-evenly -----Style boton Centrado pero con margin cada uno quedando separaditos  */}
+{/* d-flex justify-content-between -----------------Style Boton en cada esquina  */}
+    <div className='d-flex justify-content-around '>
 
 {/* {!ocultarBoton ? */}
   <button 
@@ -274,7 +281,7 @@ setOcultarBoton(true);
     onClick={Entrada}  
     value={entrada}  
     type='submit'  
-    className='btn btn-success float-left'  
+    className='btn btn-success '  
     
   > 
     Entrar
@@ -298,7 +305,7 @@ setOcultarBoton(true);
      Style="padding:15px; padding-left:35px;"  
      onClick={Salida}  
      value={salida} 
-     className='btn btn-success float-end'
+     className='btn btn-success '
       >       
      salida
      </button>  

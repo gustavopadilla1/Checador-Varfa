@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import { collection, getDocs,  deleteDoc, doc} from 'firebase/firestore'
 import {db}  from '../../Config/firestore';
+
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 // import Swal from 'sweetalert2'
@@ -11,8 +12,6 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 const TableAdmin = () => {
 const [usuarios, setUsuarios] = useState([]);
 const [search , setSearch] = useState("");
-
-
 
 const usuariosCollection = collection(db, "usuarios" )
 
@@ -53,6 +52,7 @@ const deleteUser = async (id)=>{
  
 useEffect(() => {
     getUsuarios()
+
 }, [])
 
 
@@ -82,16 +82,17 @@ useEffect(() => {
 
 <Link to={`/CreateUser`} className = "btn btn-primary" >Agregar </Link>
 <br/><br/>
+
       <table className="table" id='Reporte'>
   <thead>
     <tr>      
       <th scope="col">Usuario</th>
       <th scope="col">Correo</th>
       <th scope="col">Rol</th>
-      <th scope="col">Contraseña</th>
+      {/* <th scope="col">Contraseña</th> */}
       <th scope="col">puesto</th>
       <th scope="col">Estado</th>
-      <th scope="col">Ubicación</th>
+      {/* <th scope="col">Ubicación</th> */}
       <th scope="col">Hora de Entrada</th>
       <th scope="col">Hora de Salida</th>
       <th scope="col">Comentarios</th>
@@ -113,14 +114,13 @@ useEffect(() => {
           <td> {usuario.usuario}</td>
           <td> {usuario.correo}</td>
           <td>{usuario.rol}</td>
-          <td>{usuario.password}</td>          
+          {/* <td>{usuario.password}</td>           */}
           <td>{usuario.puesto}</td>
           <td>{usuario.motivo}</td>
-          <td>{usuario.ubicacion}</td>
+          {/* <td>{usuario.ubicacion}</td> */}
           <td>{usuario.entrada}</td>
 
-          {/* {usuario.map((entrada)=>(
-             
+          {/* {usuario.map((entrada)=>(             
             <td> {entrada.Fecha}</td>
           ))}  */}
 
@@ -135,10 +135,8 @@ useEffect(() => {
         </tr>
     ))}  
     
-
-
   </tbody>
-</table>
+  </table>
     </div>
   )
 }
