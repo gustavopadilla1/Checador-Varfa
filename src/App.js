@@ -3,7 +3,6 @@ import React, {useState } from 'react'
 // import AUTH from './pages/Auth';
 import Home from './pages/Home/Home';
 
-
 import firebaseApp from './Config/Credenciales';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
 import {getFirestore, doc, getDoc} from 'firebase/firestore';
@@ -16,9 +15,9 @@ const  firestore = getFirestore(firebaseApp) ;
 function App() {
   const [user, setUser] = useState(null);
   
-async function getRol(uid) {
+  async function getRol(uid) {
 
-  const docuRef =  doc(firestore, `usuarios/${uid}`);
+  const docuRef =  doc(firestore, `colaboladores/${uid}`);
   const docuCifrada = await getDoc (docuRef);
   const docuFinal = docuCifrada.data();
   console.log(docuFinal);
@@ -31,16 +30,19 @@ async function setUserWithFirebaseAndRol(usuarioFirebase) {
     const userData = {
       uid: usuarioFirebase.uid,      
       email: usuarioFirebase.email,                  
-      rol: res.rol,
-      usuario: res.usuario,
-      ['AREA FUNCIONAL']: res['AREA FUNCIONAL']
-
-      // puesto: usuarioFirebase.puesto,
-      // entrada: usuarioFirebase.entrada, 
-      // salida: usuarioFirebase.salida,
+      // rol: res.rol,
+      ['NIVEL DE AUTORIDAD']: res['NIVEL DE AUTORIDAD'],
+      ['CORREO ELECTRONICO']: res['CORREO ELECTRONICO'],
+      ['ESTADO DEL EMPLEADO']: res['ESTADO DEL EMPLEADO'],     
+      ['EQUIPO DE TRABAJO']: res['EQUIPO DE TRABAJO'],     
+      ['AREA FUNCIONAL']: res['AREA FUNCIONAL'],
+      ['NOMBRE COMPLETO']: res['NOMBRE COMPLETO'],
+      ['NOMBRE CORTO']: res['NOMBRE CORTO']      
     }
+
     setUser(userData);
     console.log(userData);
+
   })
 };
 
@@ -58,13 +60,9 @@ onAuthStateChanged(auth, (usuarioFirebase) =>{
 
   return (  
   <> 
- 
- 
- 
+  
   { user ?  <Home  user={user} /> : <AuthGoogle/> }    
-    
-    
-
+ 
   </> ) ;
 
 }

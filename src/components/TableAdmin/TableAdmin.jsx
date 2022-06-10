@@ -3,25 +3,25 @@ import {Link} from 'react-router-dom';
 import { collection, getDocs,  deleteDoc, doc} from 'firebase/firestore'
 import {db}  from '../../Config/firestore';
 
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+// import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 // import Swal from 'sweetalert2'
 // import withReactContent from 'sweetalert2-react-content'
 // const MySwal = withReactContent(Swal);
 
-const TableAdmin = () => {
-const [usuarios, setUsuarios] = useState([]);
+const TableAdmin = ({user}) => {
+const [Checador, setChecador] = useState([]);
 const [search , setSearch] = useState("");
 
-const usuariosCollection = collection(db, "usuarios" )
+const ChecadorCollection = collection(db, "Checador" )
 
-const getUsuarios = async() => {
-    const data = await getDocs(usuariosCollection)
+const getChecador = async() => {
+    const data = await getDocs(ChecadorCollection)
     // console.log(data.docs);
-    setUsuarios(
+    setChecador(
       data.docs.map((doc)=> ({...doc.data(), id: doc.id}))        
       )
-      console.log(usuarios) 
+      console.log(Checador) 
        
 
 }
@@ -44,21 +44,21 @@ const deleteUser = async (id)=>{
   //     )
   //   }
   // })
-    const userDoc = doc(db, "usuarios", id) 
+    const userDoc = doc(db, "Checador", id) 
     await deleteDoc(userDoc)
 
-    getUsuarios();
+    getChecador();
 }
  
 useEffect(() => {
-    getUsuarios()
+  getChecador()
 
-}, [])
+}, [])  
 
 
   return (
     <div>
-  <div align='center'>
+  {/* <div align='center'>
  <ReactHTMLTableToExcel
   id = 'BotonExportarExcel'
   className = "btn btn-success"
@@ -67,7 +67,11 @@ useEffect(() => {
   sheet = "REPORTE"
   buttonText = "Exportar a Excel"
  />
-</div>
+</div> */}
+
+
+
+
     <br/>
 <div className="row mb-12 justify-content-center" >
     <div className="col-sm-3">
@@ -82,55 +86,46 @@ useEffect(() => {
 
 <Link to={`/CreateUser`} className = "btn btn-primary" >Agregar </Link>
 <br/><br/>
-
-      <table className="table" id='Reporte'>
+{/* <table className="table table-bordered border-primary" id='Reporte'> */}
+      <table className="table table-bordered border-primary" id='Reporte'>
   <thead>
     <tr>      
-      <th scope="col">Usuario</th>
-      <th scope="col">Correo</th>
-      <th scope="col">Rol</th>
-      {/* <th scope="col">Contraseña</th> */}
-      <th scope="col">puesto</th>
-      <th scope="col">Estado</th>
-      {/* <th scope="col">Ubicación</th> */}
-      <th scope="col">Hora de Entrada</th>
-      <th scope="col">Hora de Salida</th>
-      <th scope="col">Comentarios</th>
-
+      <th scope="col">Nombre</th>
+      <th scope="col">Correo</th>      
+      <th scope="col">Equipo de Trabajo</th>
+      <th scope="col">Area Funcional </th>
+      <th scope="col">Laborando </th>
+      <th scope="col" className='table-primary'>Hora de Entrada</th>
+      <th scope="col" className=' table-warning ' >Hora de Salida</th>
+      <th scope="col" className='table-success'>Comentarios</th>
       <th scope="col">Acción</th>    
     </tr>
   </thead>
   <tbody>    
-    {usuarios.filter(usuario => {
+    {Checador.filter(colabolador => {
       if (search === "") {
-        return usuario;
-      }else if ((usuario.usuario  || usuario.salida || usuario.rol || usuario.puesto || usuario.motivo)
+        return colabolador;
+      }else if ((colabolador['NOMBRE COMPLETO'] )
       .toLowerCase().includes(search.toLowerCase())) {
-        return usuario;      
+        return colabolador;      
       }
     })
-    .map((usuario)=>(
-        <tr key={usuario.id}>
-          <td> {usuario.usuario}</td>
-          <td> {usuario.correo}</td>
-          <td>{usuario.rol}</td>
-          {/* <td>{usuario.password}</td>           */}
-          <td>{usuario.puesto}</td>
-          <td>{usuario.motivo}</td>
-          {/* <td>{usuario.ubicacion}</td> */}
-          <td>{usuario.entrada}</td>
+    .map((colabolador)=>(
+        <tr key={colabolador.id}>
+          <td> {colabolador['NOMBRE COMPLETO']}</td>
+          <td> {colabolador['CORREO ELECTRONICO']}</td>          
+          <td>{colabolador['EQUIPO DE TRABAJO']}</td>
+          <td>{colabolador['AREA FUNCIONAL']}</td>
+          <td>{colabolador.laborando}</td>
 
-          {/* {usuario.map((entrada)=>(             
-            <td> {entrada.Fecha}</td>
-          ))}  */}
-
-          <td>{usuario.salida}</td> 
-          <td>{usuario.comentario}</td> 
+          <td className ='table-primary' >{colabolador.entrada}</td>          
+          <td className='table-warning'>{colabolador.salida}</td> 
+          <td className='table-success' >{colabolador.comentario}</td> 
           
           <td>
             {/* <Link to={`/FormEdit/${usuario.id}`} className = "btn btn-primary" >Editar</Link> */}
             {/* <FontAwesomeIcon icon="fa-solid fa-trash-can" /> */}
-            <button onClick = {()=> (deleteUser(usuario.id))} className = "btn btn-primary" > Borrar</button> 
+            <button onClick = {()=> (deleteUser(colabolador.id))} className = "btn btn-primary" > Borrar</button> 
           </td>
         </tr>
     ))}  

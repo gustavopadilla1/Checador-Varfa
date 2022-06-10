@@ -58,8 +58,6 @@ const App = () => {
 					<h1> {data ? "registrar": "Iniciar Sesión"} </h1>					
 					{/* <Typography component='h1' variant='h5'>Iniciar secion</Typography>				 */}
 
-
-
 					<form  onSubmit={onSubmit}>
 						<TextField
 							fullWidth
@@ -85,7 +83,6 @@ const App = () => {
 							// value={User.password}
 							// onChange={handleChange}
 						/>
-
 			<div Style="Font-Size:0px">
 						<TextField 
 								Style="padding:-100px; margin:-100px; border 0px"							

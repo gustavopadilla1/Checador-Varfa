@@ -7,7 +7,7 @@ import CreateUser from '../CreateUser';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
 
-function HomeAdmin() {
+function HomeAdmin({user}) {
 
     return (
       <div>
@@ -15,9 +15,9 @@ function HomeAdmin() {
         
         <BrowserRouter>
           <Routes>
-        <Route path='/' element={<TableAdmin/>}/>
-        <Route path='/FormEdit/:id' element={<FormEdit/>}/>
-        <Route path='/FormCreate' element={<FormCreate/>}/>      
+        <Route path='/' element={<TableAdmin user={user}/>}/>
+        {/* <Route path='/FormEdit/:id' element={<FormEdit/>}/>
+        <Route path='/FormCreate' element={<FormCreate/>}/>       */}
         <Route path='/CreateUser' element={<CreateUser/>}/>
       </Routes>
     </BrowserRouter>

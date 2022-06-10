@@ -9,7 +9,6 @@ import { db} from '../../Config/firestore';
 // const auth = getAuth(firebaseApp);
 
 
-
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal);
@@ -17,27 +16,28 @@ const MySwal = withReactContent(Swal);
 const TableUser = ({user}) => {
 
   const [correo, setCorreo] = useState("");
-  const [usuario, setUsuarios] = useState("");
+  const [, setUsuarios] = useState("");
 
-  const [puesto, setPuesto]= useState("");
+  const [, setPuesto]= useState("");  
   const [entrada, setEntrada]= useState("");
   const [salida, setSalida]= useState("");
-  const [motivo, setMotivo] = useState("");
+  const [laborando, setLaborando] = useState("");
   const [comentario, setComentario] = useState("");
   const [ubicacion, ] = useState("");
+  const [, setequipotrabajo] = useState();
 
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
+  
+  const CHECADORCollection = collection(db, "Checador");
 
-        
-  const userCollection = collection(db, "usuarios");
 
   const Add = async (e) =>{
 
     e.preventDefault();    
     
-    await addDoc (userCollection, {correo:correo, usuario: user.usuario, puesto:user['AREA FUNCIONAL'], entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion})
+    await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
     console.log(e);
-    console.log({usuario: usuario, puesto:puesto, entrada:entrada , salida:salida, motivo:motivo, comentario:comentario, ubicacion:ubicacion});
+    console.log({correo:correo, Nombre: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'], entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion});
     MySwal.fire({
 			position: 'center',
 			icon: 'success',
@@ -180,12 +180,12 @@ setOcultarBoton(true);
 
 
         <div className="row mb-1 justify-content-center" >
-    <label className="col-sm-1 col-form-label"   >Usuario:</label>
+    <label className="col-sm-1 col-form-label"   >Nombre:</label>
     <div className="col-sm-7">
     <input
     
-                        value={user.usuario}                      
-                        onChange ={()=> setUsuarios(user.usuario)}  
+                        value={user['NOMBRE COMPLETO']}                      
+                        onChange ={()=> setUsuarios(user['NOMBRE COMPLETO'])}  
 
                         // placeholder ={(e)=> setUsuarios(e.target.value)}
                         type='text'
@@ -204,8 +204,8 @@ setOcultarBoton(true);
     <div className="col-sm-7">
     <input
     
-                        value={user.email}                      
-                        onChange ={()=> setCorreo(user.email)}  
+                        value={user['CORREO ELECTRONICO']}                      
+                        onChange ={()=> setCorreo(user['CORREO ELECTRONICO'])}  
 
                         // placeholder ={(e)=> setUsuarios(e.target.value)}
                         type='text'
@@ -220,7 +220,7 @@ setOcultarBoton(true);
     </div>
     
     <div className="row mb-1 justify-content-center"   >
-    <label className="col-sm-1 col-form-label">Area</label>
+    <label className="col-sm-1 col-form-label">Area Funcional</label>
     <div className="col-sm-7">
 
 						<input  value={user['AREA FUNCIONAL']}  
@@ -228,17 +228,29 @@ setOcultarBoton(true);
                       type='text'
                       className='form-control '
                       
-                      />
-					
-        
+                      />					        
     </div>
     </div>
+
+    <div className="row mb-1 justify-content-center"   >
+    <label className="col-sm-1 col-form-label">Equipo de Trabajo </label>
+    <div className="col-sm-7">
+
+						<input  value={user['EQUIPO DE TRABAJO']}  
+                      onChange ={()=> setequipotrabajo(user['EQUIPO DE TRABAJO'])}                        
+                      type='text'
+                      className='form-control '
+                      
+                      />					        
+    </div>
+    </div>
+
 
     
     <div className="row mb-1 justify-content-center"  >
     <label className="col-sm-1 col-form-label">Estado</label>
     <div className="col-sm-7">
-    <select value={motivo}  onChange ={(e)=> setMotivo(e.target.value)} className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
+    <select value={laborando}  onChange ={(e)=> setLaborando(e.target.value)} className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
 						
             <option></option>            
 						<option>Home Office</option>
