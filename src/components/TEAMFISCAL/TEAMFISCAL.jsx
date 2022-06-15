@@ -26,26 +26,50 @@ function TEAMFISCAL({user}) {
       
       <div className='container'>
     
-                <div className="col d-flex bd-highlight example-parent ">
+    
+      <div className="row">
 
-                    <div className="row p-2 m-4 flex-fill border border-primary border-2 rounded-5">
-                        <p className='fw-bolder text-center '>Nombres</p>
-                    </div>
-                    <div className="row p-2 m-4 flex-fill border border-primary border-3 rounded-5">
-                        <p className='fw-bolder text-center'>   Equipo</p>
-                    </div>
-                    <div className="row p-2 m-4 flex-fill border border-primary border-3 rounded-5">
-                        <p className='fw-bolder text-center'>Status de Entrada</p>
-                    </div>
-                    <div className="row p-2 m-4 flex-fill border border-primary border-3 rounded-5">
-                        <p className=' fw-bolder text-center'>Status de Salida</p>
-                    </div>
-                    <div className="row p-2 m-4 flex-fill border border-primary border-3 rounded-5">
-                        <p className=' fw-bolder text-center'>Comentarios</p>
-                    </div>
+  <div className="col-sm-3">
+    <div className="card">
+      <div className="card-body">
+        <h6 className="card-title text-center">Nombre:</h6>        
+      </div>
+    </div>
+  </div>
+  <div className="col-sm-2">
+    <div className="card">
+      <div className="card-body">
+        <h6 className="card-title text-center">Equipo:</h6>        
+      </div>
+    </div>
+  </div>
 
-                </div>
+  <div className="col-sm-2">
+    <div className="card">
+      <div className="card-body">
+        <h6 className="card-title text-center">Status de Entrada:</h6>        
+      </div>
+    </div>
+  </div>
+  <div className="col-sm-2">
+    <div className="card">
+      <div className="card-body">
+        <h6 className="card-title text-center">Status de Salida:</h6>        
+      </div>
+    </div>
+  </div>
 
+  <div className="col-sm-3">
+    <div className="card">
+      <div className="card-body">
+        <h6 className="card-title text-center">Comentarios:</h6>        
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<br />
 
                 {
                     colaboladores.map((colabolador) => {
@@ -53,29 +77,65 @@ function TEAMFISCAL({user}) {
                         
                             if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM FISCAL') {
                                 return (
-                                    <div key={colabolador.id} className="col d-flex">
+                                    <div key={colabolador.id} className="row">
 
-                                        <div className="row p-1 m-4 flex-fill d-flex justify-content-center border border-dark border-3 rounded-5">
-                                            <p className=' text-center '>{colabolador['NOMBRE COMPLETO']}</p>
-                                        </div>
-                                        <div className="row p-1 m-4 flex-fill d-flex justify-content-center border border-primary border-3 rounded-5">
-                                            <p className=' text-center'>{colabolador['EQUIPO DE TRABAJO']}</p>
-                                        </div>
-                                        <div className="row p-1 m-4 flex-fill d-flex justify-content-center border border-primary border-3 rounded-5">
-                                            <p className=' text-center'>prueba</p>
-                                        </div>
-                                        <div className="row p-1 m-4 flex-fill d-flex justify-content-center border border-primary border-3 rounded-5">
-                                            <p className='  text-center'>prueba</p>
-                                        </div>
-                                        <div className="row p-1 m-4 flex-fill d-flex justify-content-center border border-primary border-3 rounded-5">
-                                            <p className='  text-center'>prueba</p>
+                                    <div className="col-sm-3">
+                                         <div className="card ">
+                                            <div className="card-body">
+                                              {/* <h6 className="card-title">Comentarios</h6>                                         */}
+                                                 <p className="card-text text-center">  {colabolador['NOMBRE COMPLETO']} </p>
+                                                 {/* <a href="#" className="btn btn-primary">Ver Mas</a> */}
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div className="col-sm-2">
+                                         <div className="card">
+                                            <div className="card-body">
+                                              {/* // <h6 className="card-title">Comentarios</h6>                                         */}
+                                                 <p className="card-text text-center"> {colabolador['EQUIPO DE TRABAJO']} </p>
+                                                 {/* <a href="#" className="btn btn-primary">Ver Mas</a> */}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-sm-2">
+                                         <div className="card">
+                                            <div className="card-body bg-danger text-white" >
+                                              {/* // <h6 className="card-title">Comentarios</h6>                                         */}
+                                                 <p className="card-text text-center"> en proseso  </p>
+                                                 {/* <a href="#" className="btn btn-primary">Ver Mas</a> */}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-sm-2">
+                                         <div className="card">
+                                            <div className="card-body bg-success text-white">
+                                              {/* // <h6 className="card-title">Comentarios</h6>                                         */}
+                                                 <p className="card-text text-center"> en proseso  </p>
+                                                 {/* <a href="#" className="btn btn-primary">Ver Mas</a> */}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-sm-3">
+                                         <div className="card">
+                                            <div className="card-body bg-light text-dark">
+                                              {/* // <h6 className="card-title">Comentarios</h6>                                         */}
+                                                 <p className="card-text text-center"> en proseso  </p>
+                                                 {/* <a href="#" className="btn btn-primary">Ver Mas</a> */}
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <br /><br />  
+                                  </div>
+                                  
+                                   
+                                    
                                 )
                             }
-                        
-
-
+                            
                     }
                     )
                 }

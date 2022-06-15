@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import Reloj from '../Reloj/Reloj';
 import { collection, addDoc } from 'firebase/firestore' 
 import { db} from '../../Config/firestore';
+import axios from 'axios'
 
 // import firebaseApp from '../../Config/Credenciales'
 // import {getAuth} from 'firebase/auth';
-
 // const auth = getAuth(firebaseApp);
 
 
@@ -17,14 +17,14 @@ const TableUser = ({user}) => {
 
   const [correo, setCorreo] = useState("");
   const [, setUsuarios] = useState("");
-
   const [, setPuesto]= useState("");  
   const [entrada, setEntrada]= useState("");
   const [salida, setSalida]= useState("");
   const [laborando, setLaborando] = useState("");
   const [comentario, setComentario] = useState("");
   const [ubicacion, ] = useState("");
-  const [, setequipotrabajo] = useState();
+  const [,setequipotrabajo] = useState("")
+
 
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
   
@@ -36,16 +36,42 @@ const TableUser = ({user}) => {
     e.preventDefault();    
     
     await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
-    console.log(e);
-    console.log({correo:correo, Nombre: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'], entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion});
+    console.log(e);  
+    // console.log({correo:correo, Nombre: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'], entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion});
+
+    const data ={
+      ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], 
+      ['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'],       
+      ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],
+      ['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , 
+      laborando:laborando, 
+      entrada:entrada , 
+      salida:salida,       
+      comentario:comentario
+    }
+    
+    axios.post('https://sheet.best/api/sheets/57301919-954a-4676-9da3-52041bfe4e1c',data).then((res)=>{
+    console.log(res);
+ 
+    setUsuarios('');
+    setCorreo('');
+    setPuesto(''); 
+    setequipotrabajo('');
+    setLaborando('');
+    setEntrada('');
+    setSalida('');
+    setComentario ('');      
+    
+  })
+
     MySwal.fire({
 			position: 'center',
 			icon: 'success',
 			title: 'Bienvenido Registro hecho con exito !!!',
 			showConfirmButton: false,
 			timer: 2500
-		  })
-    
+		  })    
+      
   }
  
 

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { collection, getDocs,  deleteDoc, doc} from 'firebase/firestore'
 import {db}  from '../../Config/firestore';
 
-// import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 // import Swal from 'sweetalert2'
 // import withReactContent from 'sweetalert2-react-content'
@@ -58,7 +58,7 @@ useEffect(() => {
 
   return (
     <div>
-  {/* <div align='center'>
+  <div className='d-flex justify-content-evenly'>
  <ReactHTMLTableToExcel
   id = 'BotonExportarExcel'
   className = "btn btn-success"
@@ -67,11 +67,11 @@ useEffect(() => {
   sheet = "REPORTE"
   buttonText = "Exportar a Excel"
  />
-</div> */}
 
 
+<a href='https://docs.google.com/spreadsheets/d/18lnS2_WrJV7vWJu5PcRqRmpeUXihqi5R3Jh2tO-XfVw/edit#gid=0'><button type="button" class="btn btn-success">Google Sheets</button></a>
 
-
+</div>  
     <br/>
 <div className="row mb-12 justify-content-center" >
     <div className="col-sm-3">
