@@ -9,7 +9,7 @@ import TEAMFISCAL from '../TEAMFISCAL/TEAMFISCAL';
 import TEAMDIRECCIÓN from '../TEAMDIRECCIÓN/TEAMDIRECCIÓN';
 import DirectorGeneral from '../DirectorGeneral';
 
-// import { BrowserRouter,Route,Routes } from 'react-router-dom';
+
 
 
 function HomeGerente({ user }) {
@@ -37,10 +37,6 @@ function HomeGerente({ user }) {
     return (
         <div>
 
-            
-
-
-
             <Reloj />
             <br />
             
@@ -53,18 +49,7 @@ function HomeGerente({ user }) {
             {user['AREA FUNCIONAL'] === 'Dirección General' ? <DirectorGeneral user={user}/> : <div></div>}
 
 
-{/* 
-            <BrowserRouter>
-                <Routes>
-            
-            <Route path='/' element={<DirectorGeneral user={user}/>}/>            
-            <Route path='/TEAMFOREING' element={<TEAMFOREING user={user}/>}/>
-            <Route path='/TEAMADMIN' element={<TEAMADMIN user={user}/>}/>      
-            <Route path='/TEAMFISCAL' element={<TEAMFISCAL user={user}/>}/>
-            <Route path='/TEAMDIRECCIÓN' element={<TEAMDIRECCIÓN user={user}/>}/>
 
-            </Routes>
-            </BrowserRouter> */}
 
         </div>
     )

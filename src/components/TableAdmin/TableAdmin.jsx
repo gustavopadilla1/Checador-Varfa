@@ -69,7 +69,7 @@ useEffect(() => {
  />
 
 
-<a href='https://docs.google.com/spreadsheets/d/18lnS2_WrJV7vWJu5PcRqRmpeUXihqi5R3Jh2tO-XfVw/edit#gid=0'><button type="button" class="btn btn-success">Google Sheets</button></a>
+<a href='https://docs.google.com/spreadsheets/d/18lnS2_WrJV7vWJu5PcRqRmpeUXihqi5R3Jh2tO-XfVw/edit#gid=0'><button type="button" className="btn btn-success">Google Sheets</button></a>
 
 </div>  
     <br/>

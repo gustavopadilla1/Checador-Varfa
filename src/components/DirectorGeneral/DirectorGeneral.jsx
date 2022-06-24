@@ -1,70 +1,244 @@
-import React from 'react'
-// import TEAMADMIN from '../TEAMADMIN/TEAMADMIN'
-// import TEAMFISCAL from '../TEAMFISCAL/TEAMFISCAL'
-// import TEAMFOREING from '../TEAMFOREING/TEAMFOREING'
-// import TEAMDIRECCIÓN from '../TEAMDIRECCIÓN/TEAMDIRECCIÓN'
-// import {Link} from 'react-router-dom';
-
-
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, deleteDoc, doc} from 'firebase/firestore'
+import { db } from '../../Config/firestore';
 
 function DirectorGeneral({user}) {
-  
-  
-  return (
+  const [Monitoreo, setMonitoreo] = useState([]);
+  const [counter, setCounter] = useState(10);
     
-<div className='container'>
+  const [colaboladores, setcolaboladores] = useState([]);
+  const colaboladoresCollection = collection(db, "colaboladores")
+  
+  const MONITOREOCollection = collection(db, "Monitoreo")  
+
+  const getMonitoreo = async () => {
+    const data = await getDocs(MONITOREOCollection)    
+    setMonitoreo(
+      data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    )
+    console.log(Monitoreo)
+
+  }
+
+  const getcolaboladores = async () => {
+    const data = await getDocs(colaboladoresCollection)
+    // console.log(data.docs);
+    setcolaboladores(
+        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    )
+    console.log(colaboladores)
+
+}
+
+
+
+
+  const deleteUser = async ( id )=>{
+    const userDoc = doc(db, "Monitoreo", id) 
+    await deleteDoc(userDoc)
+    getMonitoreo()
+
+  }
+
+
+
+  const comparar = async ()=>{
+    console.log("iguales");
+
+
+  }
+
+  useEffect(() =>{
+      if(counter > 0){
+          setTimeout(()=>setCounter(counter - 1), 1000);
+      }
+      if(counter === 0){
+      //  deleteUser(id)
+       console.log("eliminar ");
+      }
+  },[counter]);
+   
+
+
+  useEffect(() => {
+  
+    getMonitoreo()      
+    getcolaboladores()   
+
+    comparar()
  
-<div className="row">
-  <div className="col-sm-3">
-    <div className="card">
-    <img src="https://img.milanuncios.com/fg/3310/73/331073934_1.jpg?VersionId=io0iZgSV86LwROLnljJhgaebXdk1cNX3" class="card-img-top" Style="width: 100%; height: 110px; " alt="..."/>
-      <div className="card-body">
-        <h5 className="card-title text-center">TEAM ADMIN</h5>
+
+    
+  }, [])
+
+ 
+
+
+
+
+
+  return (
+    <div>
+      <div className='container ' >
+
+            <div className="card">
+        <div className="card-body" >
+              <h6 className='card-text text-center'>Lista de colaboradores</h6>
+              <br />
+        </div>
+      </div>
+{
+          colaboladores        
+          .map((colabolador) => {
+           
+             
+            
+
+          return (
+
+                <div className='border border-primary'>
+                <div key={colabolador.id} className="float-start m-2 " >
+ 
+            <div className="card " >
+              <div className="card-body">
+               
+              
+                        <p className="card-text text-center">  {colabolador['NOMBRE COMPLETO']  } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> 
+                        </div>
+                        
+            </div>
+            
+                   </div>  
+                  </div>                      
+          )
+
+          }
         
-        {/* <Link to={`/TEAMADMIN`} className = "btn btn-primary text-center" >Ver Mas </Link> */}
+          )
+}
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br />
+
+
+<div className="card">
+        <div className="card-body" >
+              <h6 className='card-text text-center'>Lista de checado</h6>
+              
+        </div>
+      </div>
+
+<br />
+        <div className="row ">
+
+          <div className="col-sm-3">
+            <div className="card">
+              <div className="card-body">
+                <h6 className="card-title text-center">Nombre:</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="card">
+              <div className="card-body">
+                <h6 className="card-title text-center">Equipo:</h6>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-sm-2">
+            <div className="card">
+              <div className="card-body">
+                <h6 className="card-title text-center">Status de Entrada:</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="card">
+              <div className="card-body">
+                <h6 className="card-title text-center">Status de Salida:</h6>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-sm-3">
+            <div className="card">
+              <div className="card-body">
+                <h6 className="card-title text-center">Comentarios:</h6>
+              </div>
+            </div>
+          </div>
+     
+        </div>
+        <br />
+
+        {
+          Monitoreo        
+          .map((monitoreo) => { 
+            
+              return (
+
+                <div key={monitoreo.id} className="row">
+
+                  <div className="col-sm-3">
+                    <div className="card ">
+                      <div className="card-body">
+                        <p className="card-text text-center">  {monitoreo['NOMBRE COMPLETO']} </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-2">
+                    <div className="card">
+                      <div className="card-body">
+                        <p className="card-text text-center"> {monitoreo['EQUIPO DE TRABAJO']} </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-2">
+                    <div className="card">
+                      <div className="card-body bg-danger text-white">
+                        <p className="card-text text-center"> {monitoreo.entrada } </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-2">
+                    <div className="card">
+                      <div className="card-body bg-success text-white">
+                        <p className="card-text text-center"> {monitoreo.salida}  </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-3">
+                    <div className="card">
+                      <div className="card-body bg-light text-dark">
+                        <p className="card-text text-center"> {monitoreo.comentario} </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <span >
+            {/* {counter}           */}
+                  </span>
+                      {/* <button className='btn btn-primary' onClick={()=> (deleteUser(monitoreo.id))}> Borrar</button> */}
+                  <br /><br />
+
+                </div>
+
+
+
+              )
+              
+            }
+          
+          )
+        }
 
       </div>
-    </div>
-  </div>
-  <div className="col-sm-3">
-    <div className="card">
-    <img src="https://discovery.rsm.nl/fileadmin/_generated_/download/image/45234bae16abe75140d05161c6570f13-f8fb3c90-ec19-11e5-b5fd-11b23e44bddd.jpg" 
-    Style="width: 100%; height: 110px;"
-    className="card-img-top" alt="..."/>
-      <div className="card-body">
-        <h5 className="card-title text-center">TEAM FOREING</h5>
-        {/* <Link to={`/TEAMFOREING`} className = "btn btn-primary text-center" >Ver Mas </Link>     */}
-      </div>
-    </div>
-  </div>
-
-  <div className="col-sm-3">
-    <div className="card">
-    <img src="https://w1.pngwing.com/pngs/250/753/png-transparent-building-team-team-building-organization-leadership-management-senior-management-change-management.png" 
-    className="card-img-top"
-    Style="width: 100%; height: 110px;"
-    alt="..."/>
-      <div className="card-body">
-        <h5 className="card-title text-center">TEAM DIRECCION</h5>
-        {/* <Link to={`/TEAMDIRECCIÓN`} className = "btn btn-primary text-center" >Ver Mas </Link> */}
-
-      </div>
-    </div>
-  </div>
-  <div className="col-sm-3">
-    <div className="card">
-    <img src="https://cdn.shopify.com/s/files/1/0408/5986/1160/articles/maxresdefault_1___._455x300@2x.png?v=1596905212" 
-    className="card-img-top" 
-    Style="width: 100%; height: 110px;"
-    alt="..."/>
-      <div className="card-body">
-        <h5 className="card-title text-center">TEAM FISCAL</h5>
-        {/* <Link to={`/TEAMFISCAL`} className = "btn btn-primary text-center" >Ver Mas </Link> */}
-
-      </div>
-    </div>
-  </div>
-</div>  
     </div>
   )
 }

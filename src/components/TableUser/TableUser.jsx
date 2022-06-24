@@ -1,17 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Reloj from '../Reloj/Reloj';
 import { collection, addDoc } from 'firebase/firestore' 
 import { db} from '../../Config/firestore';
 import axios from 'axios'
 
-// import firebaseApp from '../../Config/Credenciales'
-// import {getAuth} from 'firebase/auth';
-// const auth = getAuth(firebaseApp);
-
+// import io from 'socket.io-client'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal);
+
+// const socket = io.connect("http://localhost:3001");
 
 const TableUser = ({user}) => {
 
@@ -29,6 +28,7 @@ const TableUser = ({user}) => {
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
   
   const CHECADORCollection = collection(db, "Checador");
+  const MONITOREOCollection = collection(db, "Monitoreo");
 
 
   const Add = async (e) =>{
@@ -36,8 +36,9 @@ const TableUser = ({user}) => {
     e.preventDefault();    
     
     await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+    await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+    
     console.log(e);  
-    // console.log({correo:correo, Nombre: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'], entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion});
 
     const data ={
       ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], 
@@ -63,6 +64,13 @@ const TableUser = ({user}) => {
     setComentario ('');      
     
   })
+  
+
+  // socket.emit("send_message", {entrada , salida, comentario, user });
+  // socket.emit("send", {salida});
+  // socket.emit("send_message_", {comentario});
+    
+  
 
     MySwal.fire({
 			position: 'center',
@@ -125,14 +133,6 @@ setEntrada(
 
 )  
 
-// setBtnEntrada(
-//       btnSalida = true
-//     )
-
-
-// if (btnEntrada === true ) {
-//   btnSalida = false;  
-// }
 setOcultarBoton(true);
       return  entrada;  
   }
@@ -192,13 +192,15 @@ setOcultarBoton(true);
    }
 
 
+
+
   return (
     <div>
-      
       <Reloj/> 
       <br></br>
 
-      <form  className="was-validated"
+
+     <form  className="was-validated"
       onSubmit={Add}
       >
 
@@ -232,8 +234,6 @@ setOcultarBoton(true);
     
                         value={user['CORREO ELECTRONICO']}                      
                         onChange ={()=> setCorreo(user['CORREO ELECTRONICO'])}  
-
-                        // placeholder ={(e)=> setUsuarios(e.target.value)}
                         type='text'
                         className='form-control '                                                 
                     />
@@ -281,7 +281,7 @@ setOcultarBoton(true);
             <option></option>            
 						<option>Home Office</option>
 						<option>Oficina</option>
-						<option>Visita de un cliente</option>					
+						<option>De Visita con un Cliente</option>					
 						</select>
                
     </div>
