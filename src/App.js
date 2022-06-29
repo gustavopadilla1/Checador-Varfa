@@ -67,3 +67,10 @@ onAuthStateChanged(auth, (usuarioFirebase) =>{
 
 }
 export default App;
+
+
+
+// font-family: 'Anek Latin', sans-serif;
+// font-family: 'Heebo', sans-serif;
+// font-family: 'Indie Flower', cursive;
+// font-family: 'Trispace', sans-serif;

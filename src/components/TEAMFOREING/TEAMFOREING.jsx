@@ -227,7 +227,7 @@ function TEAMFOREING({user}) {
                   </div>
                   
                   <span >
-            {counter}          
+            {/* {counter}           */}
                   </span>
                       {/* <button className='btn btn-primary' onClick={()=> (deleteUser(monitoreo.id))}> Borrar</button> */}
                   <br /><br />

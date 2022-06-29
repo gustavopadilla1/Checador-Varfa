@@ -125,7 +125,7 @@ useEffect(() => {
           <td>
             {/* <Link to={`/FormEdit/${usuario.id}`} className = "btn btn-primary" >Editar</Link> */}
             {/* <FontAwesomeIcon icon="fa-solid fa-trash-can" /> */}
-            <button onClick = {()=> (deleteUser(colabolador.id))} className = "btn btn-primary" > Borrar</button> 
+            <button onClick = {()=> (deleteUser(colabolador.id))} className = "btn btn-danger" ><i className="fas fa-trash-alt" /></button> 
           </td>
         </tr>
     ))}  

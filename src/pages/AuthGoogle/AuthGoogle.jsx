@@ -1,6 +1,7 @@
 import React ,{useState}from 'react'
 import {Auth, google} from '../../Config/GogleAuth';
-import Appbar from '../../components/Appbar/Appbar'
+import {AppBar, Toolbar, Box, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu'
 import { Container, CssBaseline, Grid, Paper } from '@mui/material';
 function AuthGoogle() {
   const [, setUser] = useState(null);
@@ -21,8 +22,23 @@ function AuthGoogle() {
 	}
   return (
 	<div>
-<Appbar/>
-
+ <div>            
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static"  color='primary'>              
+                                        <Toolbar>
+                            <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </IconButton>                                                                                    
+                    </Toolbar>
+              </AppBar>
+            </Box>
+        </div>
 
 
 <Grid container component='main' className='vh-100 row justify-content-center align-items-center'>

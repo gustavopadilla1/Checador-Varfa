@@ -5,12 +5,18 @@ import { db} from '../../Config/firestore';
 import axios from 'axios'
 
 // import io from 'socket.io-client'
+import {getAuth,signOut} from 'firebase/auth';
+import firebaseApp from '../../Config/Credenciales'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal);
 
 // const socket = io.connect("http://localhost:3001");
+
+const auth = getAuth(firebaseApp);
+
+
 
 const TableUser = ({user}) => {
 
@@ -24,6 +30,11 @@ const TableUser = ({user}) => {
   const [ubicacion, ] = useState("");
   const [,setequipotrabajo] = useState("")
 
+  const [entradahora, setentradahora] = useState("");
+  const [salidahora, setsalidahora] = useState("");
+
+  const [final] =useState(entradahora , entrada );
+  const [final2] =useState(salida && salidahora);  
 
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
   
@@ -35,8 +46,10 @@ const TableUser = ({user}) => {
 
     e.preventDefault();    
     
-    await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
-    await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+    await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+    await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+
+    // await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
     
     console.log(e);  
 
@@ -65,13 +78,6 @@ const TableUser = ({user}) => {
     
   })
   
-
-  // socket.emit("send_message", {entrada , salida, comentario, user });
-  // socket.emit("send", {salida});
-  // socket.emit("send_message_", {comentario});
-    
-  
-
     MySwal.fire({
 			position: 'center',
 			icon: 'success',
@@ -80,11 +86,20 @@ const TableUser = ({user}) => {
 			timer: 2500
 		  })    
       
+      signOut(auth)
+
   }
  
 
   const Entrada = async () =>{
 
+    let o = new Date();
+
+    setentradahora(
+      o =  
+      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()
+    
+    ) 
     let d = new Date();
     
     var dia=new Array(7);
@@ -125,21 +140,33 @@ const TableUser = ({user}) => {
 
 );
 
-alert(d);
+
 
 setEntrada(
   d =  
   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
 
-)  
+)
+ 
 
-setOcultarBoton(true);
-      return  entrada;  
+// setOcultarBoton(true);      
+      return  final ;  
   }
 
 
 
+
+
+
   const Salida = async () =>{
+    let o = new Date();
+
+    setsalidahora(
+      o =  
+      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()
+    
+    ) 
+
     let d = new Date();
      
      var dia=new Array(7);
@@ -186,9 +213,11 @@ setOcultarBoton(true);
    d =  
    dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
  )  
+ 
+
 //  setOcultarBoton(false);
 
- return  salida;     
+ return  final2;     
    }
 
 
@@ -208,27 +237,22 @@ setOcultarBoton(true);
 
 
         <div className="row mb-1 justify-content-center" >
-    <label className="col-sm-1 col-form-label"   >Nombre:</label>
+    <label className="col-sm-1 col-form-label"> Nombre: </label>
     <div className="col-sm-7">
     <input
     
                         value={user['NOMBRE COMPLETO']}                      
                         onChange ={()=> setUsuarios(user['NOMBRE COMPLETO'])}  
-
-                        // placeholder ={(e)=> setUsuarios(e.target.value)}
                         type='text'
                         className='form-control '                                                 
+                        disabled
                     />
-                    
-    {/* <div class="invalid-feedback">
-      Por favor escribe tu usuario 
-    </div> */}
-
+                  
     </div>
     </div>
 
     <div className="row mb-1 justify-content-center" >
-    <label className="col-sm-1 col-form-label"   >Email:</label>
+    <label className="col-sm-1 col-form-label"> Email: </label>
     <div className="col-sm-7">
     <input
     
@@ -236,12 +260,9 @@ setOcultarBoton(true);
                         onChange ={()=> setCorreo(user['CORREO ELECTRONICO'])}  
                         type='text'
                         className='form-control '                                                 
+                        disabled
                     />
-                    
-    {/* <div class="invalid-feedback">
-      Por favor escribe tu usuario 
-    </div> */}
-
+  
     </div>
     </div>
     
@@ -253,7 +274,7 @@ setOcultarBoton(true);
                       onChange ={()=> setPuesto(user['AREA FUNCIONAL'])}                        
                       type='text'
                       className='form-control '
-                      
+                      disabled
                       />					        
     </div>
     </div>
@@ -266,17 +287,22 @@ setOcultarBoton(true);
                       onChange ={()=> setequipotrabajo(user['EQUIPO DE TRABAJO'])}                        
                       type='text'
                       className='form-control '
-                      
+                      disabled
                       />					        
     </div>
     </div>
 
-
+    
     
     <div className="row mb-1 justify-content-center"  >
-    <label className="col-sm-1 col-form-label">Estado</label>
+    <label className="col-sm-1 col-form-label">Laborando</label>
     <div className="col-sm-7">
-    <select value={laborando}  onChange ={(e)=> setLaborando(e.target.value)} className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" required>
+    <select 
+          value={laborando}  
+          onChange ={(e)=> setLaborando(e.target.value)} 
+          className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" 
+          // required
+          >
 						
             <option></option>            
 						<option>Home Office</option>
@@ -313,18 +339,24 @@ setOcultarBoton(true);
     <div className='d-flex justify-content-around '>
 
 {/* {!ocultarBoton ? */}
+  <div>
   <button 
     id='btnEntrada'
     Style="padding:15px; padding-left:35px;"  
     onClick={Entrada}  
-    value={entrada}  
+    value={ final}  
     type='submit'  
     className='btn btn-success '  
     
   > 
+  
     Entrar
+
+
+  {/* <button onClick={EntradaHORA} value={entradahora}></button>   */}
+
   </button>  
-    
+  </div>
     {/* :
 
     <></>
@@ -332,23 +364,23 @@ setOcultarBoton(true);
      */}
   
 
-  {!ocultarBoton ?
+  {/* {!ocultarBoton ?
       
     <></>
     
-    :
+    : */}
 
      <button 
      id='btnSalida'
      Style="padding:15px; padding-left:35px;"  
      onClick={Salida}  
-     value={salida} 
+     value={final2} 
      className='btn btn-success '
       >       
      salida
      </button>  
     
-    }
+    {/* } */}
 
   </div>
 

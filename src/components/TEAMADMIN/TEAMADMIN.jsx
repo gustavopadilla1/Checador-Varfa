@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, deleteDoc, doc} from 'firebase/firestore'
+import { collection, getDocs} from 'firebase/firestore'
 import { db } from '../../Config/firestore';
 
-function TEAMADMIN({user}) {
+function TEAMADMIN({ user }) {
   const [Monitoreo, setMonitoreo] = useState([]);
-  const [counter, setCounter] = useState(10);
-    
+
+
   const [colaboladores, setcolaboladores] = useState([]);
   const colaboladoresCollection = collection(db, "colaboladores")
-  
-  const MONITOREOCollection = collection(db, "Monitoreo")  
+
+  const MONITOREOCollection = collection(db, "Monitoreo")
 
   const getMonitoreo = async () => {
-    const data = await getDocs(MONITOREOCollection)    
+    const data = await getDocs(MONITOREOCollection)
     setMonitoreo(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     )
@@ -24,225 +24,170 @@ function TEAMADMIN({user}) {
     const data = await getDocs(colaboladoresCollection)
     // console.log(data.docs);
     setcolaboladores(
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     )
     console.log(colaboladores)
 
-}
-
-
-
-
-  const deleteUser = async ( id )=>{
-    const userDoc = doc(db, "Monitoreo", id) 
-    await deleteDoc(userDoc)
-    getMonitoreo()
-
   }
-
-
-
-  const comparar = async ()=>{
-    console.log("iguales");
-
-
-  }
-
-  useEffect(() =>{
-      if(counter > 0){
-          setTimeout(()=>setCounter(counter - 1), 1000);
-      }
-      if(counter === 0){
-      //  deleteUser(id)
-       console.log("eliminar ");
-      }
-  },[counter]);
-   
 
 
   useEffect(() => {
-  
-    getMonitoreo()      
-    getcolaboladores()   
-
-    comparar()
- 
-
-    
+    getMonitoreo()
+    getcolaboladores()
   }, [])
 
- 
 
-
-
-
-
+  
   return (
-    <div>
+    <div user = {user}>
       <div className='container ' >
+        <table className="table">
 
-            <div className="card">
-        <div className="card-body" >
-              <h6 className='card-text text-center'>Lista de colaboradores</h6>
-              <br />
-        </div>
-      </div>
-{
-          colaboladores        
-          .map((colabolador) => {
-            if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM ADMIN') {
-             
-            
+          <thead>
+            <tr Style="font-family: 'Heebo', sans-serif; Font-size: 15px;" >
+              <th  scope="col">USUARIO</th>
+              <th scope="col">EQUIPO</th>
+              <th scope="col">LABORANDO</th>
+              <th scope="col">ENTRADA</th>
+              <th scope="col">SALIDA</th>
+              <th scope="col">COMENTARIOS</th>
+              <th scope="col">TELEFONO</th>
 
-          return (
+            </tr>
+          </thead>
 
-                <div className='border border-primary'>
-                <div key={colabolador.id} className="float-start m-2 " >
- 
-            <div className="card " >
-              <div className="card-body">
-               
-              
-                        <p className="card-text text-center">  {colabolador['NOMBRE COMPLETO']  } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> 
-                        </div>
+
+
+          {
+            colaboladores
+              .map((colabolador) => {
+                
+                if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM ADMIN') {
+                  return (
+                    <tbody key={colabolador.id}>
+                      <tr >       
+                        <td scope="row">
+                          
+                          <div >
+                              <img src={colabolador.foto ?? "https://st.depositphotos.com/1694341/1307/i/600/depositphotos_13070213-stock-photo-bruno-mars.jpgg"} className="rounded-circle" style={{width: 45}} alt="Avatar" />
+
+                               <a><b>{colabolador['NOMBRE COMPLETO']} </b></a>  <br/>
+                          
+                                <p style={{marginLeft:50 }} className='fst-italic lh-1'>
+                                   {colabolador['CORREO ELECTRONICO']}
+                                </p>                          
                         
-            </div>
-            
-                   </div>  
-                  </div>                      
-          )
-
-          }
-        }
-          )
-}
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br />
+                        </div>
+                        </td>
+                        <td 
+                            Style="font-family: 'Anek Latin', sans-serif; Font-size: 16px;" > 
+                            {colabolador['EQUIPO DE TRABAJO']} 
+                        </td>
 
 
-<div className="card">
-        <div className="card-body" >
-              <h6 className='card-text text-center'>Lista de checado</h6>
-              
-        </div>
-      </div>
+                        {
+                          Monitoreo
+                            // .slice(0,2)                      
+                            .map((monitoreo) => {
+                              if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
+                                 if (monitoreo.laborando =="") {
+                                   
+                                    return(
+                                     <div >
+                                       <p>hola</p>
+                                     </div>
+                                    )
+                                  } 
+                                      else{
+                                        
+                                        return (
+                                          <td 
+                                              Style="font-family: 'Heebo', sans-serif; Font-size: 16px;">
+                                                {monitoreo.laborando} 
+                                          </td>
+                                        )
+                                      }
+                                
 
-<br />
-        <div className="row ">
 
-          <div className="col-sm-3">
-            <div className="card">
-              <div className="card-body">
-                <h6 className="card-title text-center">Nombre:</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <div className="card">
-              <div className="card-body">
-                <h6 className="card-title text-center">Equipo:</h6>
-              </div>
-            </div>
-          </div>
+                              }
 
-          <div className="col-sm-2">
-            <div className="card">
-              <div className="card-body">
-                <h6 className="card-title text-center">Status de Entrada:</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <div className="card">
-              <div className="card-body">
-                <h6 className="card-title text-center">Status de Salida:</h6>
-              </div>
-            </div>
-          </div>
 
-          <div className="col-sm-3">
-            <div className="card">
-              <div className="card-body">
-                <h6 className="card-title text-center">Comentarios:</h6>
-              </div>
-            </div>
-          </div>
-     
-        </div>
-        <br />
+                            }
+                            )
+                        }
 
-        {
-          Monitoreo        
-          .map((monitoreo) => {
 
-            if (monitoreo['EQUIPO DE TRABAJO'] === 'TEAM ADMIN') {
+                        {
+                          Monitoreo
+                            // .slice(0,2)                      
+                            .map((monitoreo) => {
+                              if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
+                                
 
-              if (monitoreo['EQUIPO DE TRABAJO'] === colaboladores['NOMBRE COMPLETO']) {
-                          console.log("hola guapo");
+                                return (
+                                <td Style="font-family: 'Heebo', sans-serif; Font-size: 16px;" 
+                                    className='text-success'><b>
+                                    {monitoreo.entradahora}</b>
+                                </td>
+                                )
+                              }
+
+
+                            }
+                            )
+                        }
+
+                        {
+                          Monitoreo
+                            // .slice(0,10)
+                            .map((monitoreo) => {
+                              if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
+
+                                // if (monitoreo.salida === "") {                              
+                                return (
+
+                                  <td 
+                                    Style="font-family: 'Heebo', sans-serif; Font-size: 15px;" 
+                                    className='text-success'>
+                                    {monitoreo.salidahora}
+                                    
+                                  </td>
+                                )
+                              }
+
+
+                            }
+                            )
+                        }
+
+                        {
+                          Monitoreo
+                            .map((monitoreo) => {
+                              if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
+                                return (
+
+
+                                  <td Style="font-family: 'Heebo', sans-serif; Font-size: 15px; ">{monitoreo.comentario}</td>
+                                )
+                              }
+                            }
+                            )
+                        }
+
+                      </tr>
+
+                    </tbody>
+                  )
+
+                }
               }
-
-              return (
-
-                <div key={monitoreo.id} className="row">
-
-                  <div className="col-sm-3">
-                    <div className="card ">
-                      <div className="card-body">
-                        <p className="card-text text-center">  {monitoreo['NOMBRE COMPLETO']} </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-sm-2">
-                    <div className="card">
-                      <div className="card-body">
-                        <p className="card-text text-center"> {monitoreo['EQUIPO DE TRABAJO']} </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-sm-2">
-                    <div className="card">
-                      <div className="card-body bg-danger text-white">
-                        <p className="card-text text-center"> {monitoreo.entrada } </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-sm-2">
-                    <div className="card">
-                      <div className="card-body bg-success text-white">
-                        <p className="card-text text-center"> {monitoreo.salida}  </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-sm-3">
-                    <div className="card">
-                      <div className="card-body bg-light text-dark">
-                        <p className="card-text text-center"> {monitoreo.comentario} </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <span >
-            {/* {counter}           */}
-                  </span>
-                      {/* <button className='btn btn-primary' onClick={()=> (deleteUser(monitoreo.id))}> Borrar</button> */}
-                  <br /><br />
-
-                </div>
-
               )
-
-            }
           }
-          )
-        }
+        </table>
 
       </div>
-    </div>
+   </div>
   )
 }
 

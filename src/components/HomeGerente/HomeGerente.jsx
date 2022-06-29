@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs, } from 'firebase/firestore'
 import { db } from '../../Config/firestore';
 
-import Reloj from '../Reloj/Reloj'
+import Reloj from '../Reloj/Reloj';
 import TEAMFOREING from '../TEAMFOREING/TEAMFOREING';
 import TEAMADMIN from '../TEAMADMIN/TEAMADMIN';
 import TEAMFISCAL from '../TEAMFISCAL/TEAMFISCAL';
@@ -37,9 +37,9 @@ function HomeGerente({ user }) {
     return (
         <div>
 
-            <Reloj />
-            <br />
+            <Reloj />            
             
+            <br />            
            
             {user['EQUIPO DE TRABAJO'] === 'TEAM FOREIGN' ? <TEAMFOREING user={user}/> : <div></div>}           
             {user['EQUIPO DE TRABAJO'] === 'TEAM ADMIN' ? <TEAMADMIN user={user}/> : <div></div>} 
@@ -47,9 +47,6 @@ function HomeGerente({ user }) {
             {user['EQUIPO DE TRABAJO'] === 'TEAM DIRECCIÓN' ? <TEAMDIRECCIÓN user={user}/> : <div></div>}
 
             {user['AREA FUNCIONAL'] === 'Dirección General' ? <DirectorGeneral user={user}/> : <div></div>}
-
-
-
 
         </div>
     )
