@@ -26,7 +26,7 @@ const TableUser = ({user}) => {
   const [entrada, setEntrada]= useState("");
   const [salida, setSalida]= useState("");
   const [laborando, setLaborando] = useState("");
-  const [comentario, setComentario] = useState("");
+  const [comentario, setComentario] = useState("Buen dia");
   const [ubicacion, ] = useState("");
   const [,setequipotrabajo] = useState("")
 
@@ -34,7 +34,7 @@ const TableUser = ({user}) => {
   const [salidahora, setsalidahora] = useState("");
 
   const [final] =useState(entradahora , entrada );
-  const [final2] =useState(salida && salidahora);  
+  const [final2] =useState(salida , salidahora);  
 
   const [ocultarBoton, setOcultarBoton] = React.useState(false);
   
@@ -44,8 +44,8 @@ const TableUser = ({user}) => {
 
   const Add = async (e) =>{
 
-    e.preventDefault();    
-    
+    e.preventDefault();        
+
     await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
     await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
 
@@ -92,14 +92,12 @@ const TableUser = ({user}) => {
  
 
   const Entrada = async () =>{
-
     let o = new Date();
-
     setentradahora(
       o =  
-      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()
-    
+      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()  
     ) 
+
     let d = new Date();
     
     var dia=new Array(7);
@@ -145,10 +143,8 @@ const TableUser = ({user}) => {
 setEntrada(
   d =  
   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
-
 )
  
-
 // setOcultarBoton(true);      
       return  final ;  
   }
@@ -160,11 +156,9 @@ setEntrada(
 
   const Salida = async () =>{
     let o = new Date();
-
     setsalidahora(
       o =  
-      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()
-    
+      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()    
     ) 
 
     let d = new Date();
@@ -301,7 +295,7 @@ setEntrada(
           value={laborando}  
           onChange ={(e)=> setLaborando(e.target.value)} 
           className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" 
-          // required
+          required
           >
 						
             <option></option>            
@@ -316,7 +310,7 @@ setEntrada(
     <div className="row mb-1 justify-content-center form-floating" >
     <div className="col-sm-4">
     <textarea              
-                        placeholder="Deseas colocar un comentario: (opcional)"
+                        placeholder="Deseas colocar un comentario: (opcional)"                                                
                         value={comentario}
                         onChange ={(e)=> setComentario(e.target.value)}
                         type='text'
@@ -348,10 +342,8 @@ setEntrada(
     type='submit'  
     className='btn btn-success '  
     
-  > 
-  
+  >   
     Entrar
-
 
   {/* <button onClick={EntradaHORA} value={entradahora}></button>   */}
 

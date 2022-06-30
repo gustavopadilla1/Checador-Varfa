@@ -50,8 +50,7 @@ function TEAMADMIN({ user }) {
               <th scope="col">LABORANDO</th>
               <th scope="col">ENTRADA</th>
               <th scope="col">SALIDA</th>
-              <th scope="col">COMENTARIOS</th>
-              <th scope="col">TELEFONO</th>
+              <th scope="col">COMENTARIOS</th>                
 
             </tr>
           </thead>
@@ -64,12 +63,13 @@ function TEAMADMIN({ user }) {
                 
                 if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM ADMIN') {
                   return (
+                    
                     <tbody key={colabolador.id}>
-                      <tr >       
-                        <td scope="row">
+                      <tr  >       
+                        <td >
                           
                           <div >
-                              <img src={colabolador.foto ?? "https://st.depositphotos.com/1694341/1307/i/600/depositphotos_13070213-stock-photo-bruno-mars.jpgg"} className="rounded-circle" style={{width: 45}} alt="Avatar" />
+                              <img src={colabolador.foto ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} className="rounded-circle" style={{width: 45}} alt="Avatar" />
 
                                <a><b>{colabolador['NOMBRE COMPLETO']} </b></a>  <br/>
                           
@@ -85,37 +85,32 @@ function TEAMADMIN({ user }) {
                         </td>
 
 
+
+
                         {
                           Monitoreo
                             // .slice(0,2)                      
                             .map((monitoreo) => {
                               if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
-                                 if (monitoreo.laborando =="") {
-                                   
-                                    return(
-                                     <div >
-                                       <p>hola</p>
-                                     </div>
-                                    )
-                                  } 
-                                      else{
+                              
                                         
                                         return (
+                                        <div>
                                           <td 
-                                              Style="font-family: 'Heebo', sans-serif; Font-size: 16px;">
+                                              Style="font-family: 'Heebo', sans-serif; Font-size: 16px;"
+                                              className='text-primary'><b>
                                                 {monitoreo.laborando} 
+                                                </b>
                                           </td>
+                                        </div>
                                         )
-                                      }
-                                
-
-
                               }
-
-
                             }
                             )
                         }
+
+
+
 
 
                         {
@@ -123,52 +118,67 @@ function TEAMADMIN({ user }) {
                             // .slice(0,2)                      
                             .map((monitoreo) => {
                               if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
-                                
 
-                                return (
-                                <td Style="font-family: 'Heebo', sans-serif; Font-size: 16px;" 
-                                    className='text-success'><b>
-                                    {monitoreo.entradahora}</b>
-                                </td>
-                                )
-                              }
-
-
-                            }
-                            )
-                        }
-
-                        {
-                          Monitoreo
-                            // .slice(0,10)
-                            .map((monitoreo) => {
-                              if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
-
-                                // if (monitoreo.salida === "") {                              
-                                return (
-
-                                  <td 
-                                    Style="font-family: 'Heebo', sans-serif; Font-size: 15px;" 
-                                    className='text-success'>
-                                    {monitoreo.salidahora}
+                                if (!monitoreo.entradahora=="") {
+                                  return(
+                                    <td>
+                                      <div>
+                                    <a>{monitoreo.entradahora} </a>
+                                    </div>
+                                    </td>
                                     
-                                  </td>
-                                )
+                                  )
+                                }                               
+                                
                               }
-
-
                             }
                             )
                         }
+
+
+{
+                          Monitoreo
+                            // .slice(0,2)                      
+                            .map((monitoreo) => {
+                              if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
+
+                                  if(!monitoreo.salidahora ==""){
+                                  return (
+                                    
+                                    <td>
+                                      
+                                    <br ></br><br ></br>
+                                    
+                                  <p>                                                       
+                                  {monitoreo.salidahora}                                                                        
+                               </p>  
+                               
+                               </td> 
+                                  )
+                                }
+                                
+                              }
+                            }
+                            )
+                        }
+
 
                         {
                           Monitoreo
                             .map((monitoreo) => {
                               if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
-                                return (
-
-
-                                  <td Style="font-family: 'Heebo', sans-serif; Font-size: 15px; ">{monitoreo.comentario}</td>
+                                
+                                return (      
+                                  <div>                                                              
+                                  <td 
+                                      Style="font-family: 'Heebo', sans-serif; Font-size: 16px;"><b>
+                                       
+                                        {monitoreo.comentario} 
+                                      
+                                        </b>
+                                        
+                                  </td>                                  
+                                  </div>
                                 )
                               }
                             }
