@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs} from 'firebase/firestore'
 import { db } from '../../Config/firestore';
+// import { Link } from 'react-router-dom';
+
 
 function TEAMADMIN({ user }) {
   const [Monitoreo, setMonitoreo] = useState([]);
@@ -31,6 +33,7 @@ function TEAMADMIN({ user }) {
   }
 
 
+  
   useEffect(() => {
     getMonitoreo()
     getcolaboladores()
@@ -40,7 +43,11 @@ function TEAMADMIN({ user }) {
   
   return (
     <div user = {user}>
-      <div className='container ' >
+
+{/* <Link to={`/ChecarSupervisor`} className = "btn btn-primary" >Checar </Link> */}
+
+
+      <div className='container ' > 
         <table className="table">
 
           <thead>
@@ -195,6 +202,11 @@ function TEAMADMIN({ user }) {
               )
           }
         </table>
+
+
+       
+
+
 
       </div>
    </div>

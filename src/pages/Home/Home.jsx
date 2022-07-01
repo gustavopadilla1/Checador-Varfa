@@ -32,6 +32,8 @@ function Home({user}) {
       {/* <h6 >{user.rol}</h6> */}
       {/* <h6> hola:  {user.usuario}</h6> */}
 
+     
+
         {user['NIVEL DE AUTORIDAD'] ==="Administrador" ? <HomeAdmin user={user}/> : <div></div>}
         {user['NIVEL DE AUTORIDAD'] ==="Colaborador" ?  <HomeUser user={user}/> : <div></div> }
         {user['NIVEL DE AUTORIDAD'] ==="Superior" ?  <HomeGerente user={user}/> : <div></div> }

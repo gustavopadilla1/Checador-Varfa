@@ -9,7 +9,8 @@ import TEAMFISCAL from '../TEAMFISCAL/TEAMFISCAL';
 import TEAMDIRECCIÓN from '../TEAMDIRECCIÓN/TEAMDIRECCIÓN';
 import DirectorGeneral from '../DirectorGeneral';
 
-
+// import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import ChecarSupervisor from '../ChecarSupervisor';
 
 
 function HomeGerente({ user }) {
@@ -35,18 +36,30 @@ function HomeGerente({ user }) {
 
 
     return (
+        
         <div>
+ {/* <h4>Hola administrador</h4> */}
+ 
+  
 
-            <Reloj />            
-            
-            <br />            
-           
-            {user['EQUIPO DE TRABAJO'] === 'TEAM FOREIGN' ? <TEAMFOREING user={user}/> : <div></div>}           
-            {user['EQUIPO DE TRABAJO'] === 'TEAM ADMIN' ? <TEAMADMIN user={user}/> : <div></div>} 
-            {user['EQUIPO DE TRABAJO'] === 'TEAM FISCAL' ? <TEAMFISCAL user={user}/> : <div></div>}
-            {user['EQUIPO DE TRABAJO'] === 'TEAM DIRECCIÓN' ? <TEAMDIRECCIÓN user={user}/> : <div></div>}
 
-            {user['AREA FUNCIONAL'] === 'Dirección General' ? <DirectorGeneral user={user}/> : <div></div>}
+
+            <Reloj />
+{/* 
+            <BrowserRouter>
+        <Routes>    
+      <Route path='/ChecarSupervisor' element={<ChecarSupervisor user={user}/>}/>
+    </Routes> */}
+            <br />
+
+                {user['EQUIPO DE TRABAJO'] === 'TEAM FOREIGN' ? <TEAMFOREING user={user} />  : <div></div>}
+                {user['EQUIPO DE TRABAJO'] === 'TEAM ADMIN' ? <TEAMADMIN user={user} /> : <div></div>}
+                {user['EQUIPO DE TRABAJO'] === 'TEAM FISCAL' ? <TEAMFISCAL user={user} /> : <div></div>}
+                {user['EQUIPO DE TRABAJO'] === 'TEAM DIRECCIÓN' ? <TEAMDIRECCIÓN user={user} /> : <div></div>}
+
+                {user['AREA FUNCIONAL'] === 'Dirección General' ? <DirectorGeneral user={user} /> : <div></div>}
+
+            {/* </BrowserRouter> */}
 
         </div>
     )

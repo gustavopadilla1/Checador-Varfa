@@ -1,7 +1,7 @@
 import React from 'react'
 import TableAdmin from '../TableAdmin/TableAdmin'
-import FormCreate from '../FormCreate/FormCreate'
-import FormEdit from '../FormEdit/FormEdit'
+// import FormCreate from '../FormCreate/FormCreate'
+// import FormEdit from '../FormEdit/FormEdit'
 import CreateUser from '../CreateUser';
 
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
