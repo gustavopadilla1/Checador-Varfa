@@ -60,10 +60,15 @@ onAuthStateChanged(auth, (usuarioFirebase) =>{
 
   return (  
   <> 
-  
-  { user ?  <Home  user={user} /> : <AuthGoogle/> }    
  
-  </> ) ;
+
+  { user ?  <Home  user={user} /> : <AuthGoogle/> }    
+
+ 
+
+  </> 
+  
+  ) ;
 
 }
 export default App;

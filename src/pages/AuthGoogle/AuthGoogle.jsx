@@ -21,7 +21,12 @@ function AuthGoogle() {
 	  })
 	}
   return (
-	<div>
+	<div Style="
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/checador-97e97.appspot.com/o/background_image.jpg?alt=media&token=328fb308-86d6-42f6-b672-e4158e6a51d6');
+  background-repeat: no-repeat;
+  background-size: cover;
+  "
+  >
  <div>            
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static"  color='primary'>              
@@ -43,9 +48,9 @@ function AuthGoogle() {
 
 <Grid container component='main' className='vh-100 row justify-content-center align-items-center'>
 			<CssBaseline />		
-			<Container component={Paper} elevation={6} maxWidth='xs' >		 
+			<Container component={Paper} elevation={6} maxWidth='xs' >	<br/>	 
 
-<div className="d-grid gap-2 col-12 mx-auto">
+<div className="d-grid gap-2 col-12 mx-auto"> 
   <button className="btn btn-success btn-lg" onClick={loginGogle} type="button">Checar</button>
 </div>
 <br/>

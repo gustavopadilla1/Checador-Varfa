@@ -9,8 +9,8 @@ import TEAMFISCAL from '../TEAMFISCAL/TEAMFISCAL';
 import TEAMDIRECCIÓN from '../TEAMDIRECCIÓN/TEAMDIRECCIÓN';
 import DirectorGeneral from '../DirectorGeneral/DirectorGeneral';
 
-// import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import ChecarSupervisor from '../ChecarSupervisor';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ChecarSupervisor from '../ChecarSupervisor';
 
 function HomeGerente({ user }) {
     const [colaboladores, setcolaboladores] = useState([]);
@@ -44,11 +44,11 @@ function HomeGerente({ user }) {
 
 
             <Reloj />
-{/* 
+
             <BrowserRouter>
         <Routes>    
-      <Route path='/ChecarSupervisor' element={<ChecarSupervisor user={user}/>}/>
-    </Routes> */}
+      <Route path='/' />
+    </Routes>
             <br />
 
                 {user['EQUIPO DE TRABAJO'] === 'TEAM FOREIGN' ? <TEAMFOREING user={user} />  : <div></div>}
@@ -58,7 +58,7 @@ function HomeGerente({ user }) {
 
                 {user['AREA FUNCIONAL'] === 'Dirección General' ? <DirectorGeneral user={user} /> : <div></div>}
 
-            {/* </BrowserRouter> */}
+            </BrowserRouter>
 
         </div>
     )

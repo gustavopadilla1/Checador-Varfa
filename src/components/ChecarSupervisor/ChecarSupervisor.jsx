@@ -10,6 +10,7 @@ import firebaseApp from '../../Config/Credenciales'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { Link } from 'react-router-dom';
 const MySwal = withReactContent(Swal);
 
 // const socket = io.connect("http://localhost:3001");
@@ -84,10 +85,9 @@ function ChecarSupervisor({user}) {
 			title: 'Bienvenido Registro hecho con exito !!!',
 			showConfirmButton: false,
 			timer: 2500
-		  })    
-      
-      signOut(auth)
+		  })          
 
+      signOut(auth);
   }
  
 
@@ -215,6 +215,12 @@ setEntrada(
    }
 
   return (
+    <>
+  <div>
+    
+      <Link to={`/`} className = "btn btn-primary" >MONITOREAR </Link>
+</div>
+
     <form  className="was-validated"
       onSubmit={Add}
       >
@@ -369,7 +375,7 @@ setEntrada(
   </div>
 
 </form>
-
+</>
   )
 }
 export default ChecarSupervisor
