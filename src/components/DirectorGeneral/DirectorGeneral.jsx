@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs} from 'firebase/firestore'
 import { db } from '../../Config/firestore';
+import { FormControl, Grid, InputLabel, MenuItem, Select, TextField, Button } from '@mui/material';
+import TEAMADMIN from '../TEAMADMIN/TEAMADMIN';
+
 
 function DirectorGeneral({ user }) {
+  const [search , setSearch] = useState("");
+  
+
+
   const [Monitoreo, setMonitoreo] = useState([]);
 
 
   const [colaboladores, setcolaboladores] = useState([]);
   const colaboladoresCollection = collection(db, "colaboladores")
-
   const MONITOREOCollection = collection(db, "Monitoreo")
+
+  const[buscar ,setbuscar]= useState('');
+
+  const [busqueda, setbusqueda] = useState({
+    type: "all",
+    query: null,
+});
+
+
+  const TYPES = ["all", 'TEAM ADMIN', 'TEAM FISCAL', 'TEAM FOREING', 'TEAM DIRECCION'];
 
   const getMonitoreo = async () => {
     const data = await getDocs(MONITOREOCollection)
@@ -30,18 +46,69 @@ function DirectorGeneral({ user }) {
 
   }
 
-
   useEffect(() => {
     getMonitoreo()
     getcolaboladores()
   }, [])
 
+  const filtrarType = e => {
+    setbusqueda((type)=>({
+      ...type, type: e.target.value
 
+    }));
+      
+    
+      if (TYPES === "TEAMADMIN") {                                
+              return <TEAMADMIN/>                                  
+      }else{
+              console.log("bb");
+        
+            }                                                            
+        
+  }
   
   return (
     <div user = {user}>
+
       <div className='container ' >
+      <Grid container sx={{marginTop:5}}>
+            <Grid item xs={6}>
+                <TextField
+                    id="outlined-search"
+                    label="Buscar"
+                    type="search"
+                    // onChange={filtrarQuery}
+                />
+                <FormControl>
+                    <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={busqueda.type}
+                        label="type"
+                        onChange={filtrarType}
+                    >
+
+{
+                          TYPES                          
+                            .map((element, idx) => {                                                             
+                                  return(                                    
+                                    <MenuItem key={idx} value={element}>
+                                    {element}                                  
+                                   </MenuItem>                                                    
+                                  )}                                                                                             
+                            )}                                              
+                    </Select>
+                </FormControl>
+            </Grid>          
+    </Grid>
+
+
+
+
+    
         <table className="table">
+
 
           <thead>
             <tr Style="font-family: 'Heebo', sans-serif; Font-size: 15px;" >
@@ -61,7 +128,7 @@ function DirectorGeneral({ user }) {
             colaboladores
               .map((colabolador) => {
                 
-                
+                // if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM FISCAL') {
                   return (
                     
                     <tbody key={colabolador.id}>
@@ -191,10 +258,10 @@ function DirectorGeneral({ user }) {
                   )
 
                 }
-              
+              // }
               )
           }
-        </table>
+        </table> 
 
       </div>
    </div>

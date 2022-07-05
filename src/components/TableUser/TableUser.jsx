@@ -26,7 +26,7 @@ const TableUser = ({user}) => {
   const [entrada, setEntrada]= useState("");
   const [salida, setSalida]= useState("");
   const [laborando, setLaborando] = useState("");
-  const [comentario, setComentario] = useState("Buen dia");
+  const [comentario, setComentario] = useState("Buen día");
   const [ubicacion, ] = useState("");
   const [,setequipotrabajo] = useState("")
 
@@ -369,7 +369,7 @@ setEntrada(
      value={final2} 
      className='btn btn-success '
       >       
-     salida
+     salída
      </button>  
     
     {/* } */}

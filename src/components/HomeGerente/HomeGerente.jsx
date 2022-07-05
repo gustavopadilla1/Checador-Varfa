@@ -7,11 +7,10 @@ import TEAMFOREING from '../TEAMFOREING/TEAMFOREING';
 import TEAMADMIN from '../TEAMADMIN/TEAMADMIN';
 import TEAMFISCAL from '../TEAMFISCAL/TEAMFISCAL';
 import TEAMDIRECCIÓN from '../TEAMDIRECCIÓN/TEAMDIRECCIÓN';
-import DirectorGeneral from '../DirectorGeneral';
+import DirectorGeneral from '../DirectorGeneral/DirectorGeneral';
 
 // import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import ChecarSupervisor from '../ChecarSupervisor';
-
 
 function HomeGerente({ user }) {
     const [colaboladores, setcolaboladores] = useState([]);

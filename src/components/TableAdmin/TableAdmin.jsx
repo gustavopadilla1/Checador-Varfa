@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import { collection, getDocs,  deleteDoc, doc} from 'firebase/firestore'
 import {db}  from '../../Config/firestore';
 
@@ -84,7 +84,7 @@ useEffect(() => {
     </div>
 <br/>
 
-<Link to={`/CreateUser`} className = "btn btn-primary" >Agregar </Link>
+{/* <Link to={`/CreateUser`} className = "btn btn-primary" >Agregar </Link> */}
 <br/><br/>
 {/* <table className="table table-bordered border-primary" id='Reporte'> */}
       <table className="table table-bordered border-primary" id='Reporte'>

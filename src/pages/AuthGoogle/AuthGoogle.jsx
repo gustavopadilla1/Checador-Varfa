@@ -26,7 +26,7 @@ function AuthGoogle() {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static"  color='primary'>              
                                         <Toolbar>
-                            <IconButton
+                            {/* <IconButton
                             size="large"
                             edge="start"
                             color="inherit"
@@ -34,7 +34,7 @@ function AuthGoogle() {
                             sx={{ mr: 2 }}
                         >
                             <MenuIcon />
-                        </IconButton>                                                                                    
+                        </IconButton>                                                                                     */}
                     </Toolbar>
               </AppBar>
             </Box>
