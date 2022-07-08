@@ -19,14 +19,12 @@ const TableAdmin = ({ user }) => {
 
   const ChecadorCollection = collection(db, "Checador")
 
-
-
   const MONITOREOCollection = collection(db, "Monitoreo")
 // bd de checador esto para almacenar el checqueo del supervisor
   const CHECADORCollection = collection(db, "Checador")
 
 // estados del los campos que se almacenaran en la bd checador
-  const [correo, setCorreo] = useState("");
+  const [, setCorreo] = useState("");
   const [, setUsuarios] = useState("");
   const [, setPuesto]= useState("");  
   const [entrada, setEntrada]= useState("");
@@ -36,18 +34,21 @@ const TableAdmin = ({ user }) => {
   const [ubicacion, ] = useState("");
   const [,setequipotrabajo] = useState("")
 
+  const [comentarioMonitoreo , setcomentarioMonitoreo] = useState("")
+  const [laborandoMonitoreo , setLaborandoMonitoreo] = useState("")
   const [entradahora, setentradahora] = useState("");
   const [salidahora, setsalidahora] = useState("");
 
   //concatanacion
   const [final] =useState(entradahora , entrada );
-  const [final2] =useState(salida , salidahora);  
+  const [final2] =useState(salida , salidahora , laborandoMonitoreo, comentarioMonitoreo);  
 
   
 /// modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
 
 
 
@@ -87,8 +88,6 @@ const TableAdmin = ({ user }) => {
   }, [])
 
 
-
-
   // Style del modal
   const style = {
     position: 'absolute',
@@ -102,14 +101,17 @@ const TableAdmin = ({ user }) => {
     p: 4,
   };
 
-
-
-
 // funcion para guardar chequeo del supervisor
 const Add = async (e) =>{
   e.preventDefault();        
   await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
-  await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+  await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'],
+  laborandoMonitoreo:laborandoMonitoreo,
+   ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], 
+   ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],
+   ['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , 
+   entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora,
+   comentarioMonitoreo:comentarioMonitoreo, ubicacion:ubicacion})
   console.log(e);  
 
   const data ={
@@ -149,9 +151,18 @@ const Add = async (e) =>{
 
 }
 
-
 // funcion de guardar campo entrada por fecha y hora
 const Entrada = async () =>{
+  if (laborando==="Home Office"){
+    setLaborandoMonitoreo("Home Office")
+  }
+  if (laborando==="Oficina"){
+    setLaborandoMonitoreo("Oficina")
+  } if (laborando==="De Visita con un Cliente") {
+    setLaborandoMonitoreo("De Visita con un Cliente")
+  }
+  setcomentarioMonitoreo(comentario)
+
   let o = new Date();
   setentradahora(
     o =  
@@ -208,11 +219,6 @@ dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear
 // setOcultarBoton(true);      
     return  final ;  
 }
-
-
-
-
-
 
 // funcion de guardar campo Salida por fecha y hora
 const Salida = async () =>{
@@ -274,6 +280,9 @@ setSalida(
 return  final2;     
  }
 
+const orden = ()=>{
+alert("Hola")
+}
 
 
   return (
@@ -305,9 +314,6 @@ return  final2;
         </div>
       </div>
       <br />
-
-
-
 
 
       <Button onClick={handleOpen} variant="contained" endIcon={<SendIcon />}>Checar</Button>
@@ -460,20 +466,22 @@ return  final2;
       {/* <table className="table table-bordered border-primary" id='Reporte'> */}
       <table className="table table-bordered border-primary" id='Reporte'>
         <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Equipo de Trabajo</th>
-            <th scope="col">Area Funcional </th>
-            <th scope="col">Laborando </th>
-            <th scope="col" className='table-primary'>Hora de Entrada</th>
-            <th scope="col" className=' table-warning ' >Hora de Salida</th>
-            <th scope="col" className='table-success'>Comentarios</th>
-            <th scope="col">Acción</th>
+          
+          <tr  Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">
+            <th scope="col" onClick={orden}>NOMBRE</th>
+            <th scope="col">CORREO ELECTRONICO</th>
+            <th scope="col">EQUIPO</th>
+            <th scope="col">AREA </th>
+            <th scope="col">LABORANDO </th>
+            <th scope="col" className='table-primary'>ENTRADA</th>
+            <th scope="col" className=' table-warning ' >SALIDA</th>
+            <th scope="col" className='table-success'>COMENTARIO</th>
+            <th scope="col">ACCION</th>
           </tr>
         </thead>
         <tbody>
-          {Checador.filter(colabolador => {
+          {Checador        
+          .filter(colabolador => {
             if (search === "") {
               return colabolador;
             } else if ((colabolador['NOMBRE COMPLETO'])
@@ -482,16 +490,17 @@ return  final2;
             }
           })
             .map((colabolador) => (
-              <tr key={colabolador.id}>
-                <td> {colabolador['NOMBRE COMPLETO']}</td>
-                <td> {colabolador['CORREO ELECTRONICO']}</td>
-                <td>{colabolador['EQUIPO DE TRABAJO']}</td>
-                <td>{colabolador['AREA FUNCIONAL']}</td>
-                <td>{colabolador.laborando}</td>
+              <tr  key={colabolador.id}>
 
-                <td className='table-primary' >{colabolador.entrada}</td>
-                <td className='table-warning'>{colabolador.salida}</td>
-                <td className='table-success' >{colabolador.comentario}</td>
+                <td Style="font-family: 'Anek Latin', sans-serif; Font-size: 14px;"> {colabolador['NOMBRE COMPLETO'] }</td>
+                <td Style="font-family: 'Anek Latin', sans-serif; Font-size: 13px;"> {colabolador['CORREO ELECTRONICO']}</td>
+                <td Style="font-family: 'Anek Latin', sans-serif; Font-size: 13px;">{colabolador['EQUIPO DE TRABAJO']}</td>
+                <td  Style="font-family: 'Anek Latin', sans-serif; Font-size: 13px;">{colabolador['AREA FUNCIONAL']}</td>
+                <td className='text-center' Style="font-family: 'Anek Latin', sans-serif; Font-size: 13px;">{colabolador.laborando}</td>
+
+                <td className='table-primary text-center' Style="font-family: 'Anek Latin', sans-serif; Font-size: 14px;"><b>{colabolador.entrada}</b></td>
+                <td className='table-warning text-center' Style="font-family: 'Anek Latin', sans-serif; Font-size: 14px;"><b>{colabolador.salida}</b></td>
+                <td className='table-success' Style="font-family: 'Anek Latin', sans-serif; Font-size: 14px;"><b>{colabolador.comentario}</b></td>
 
                 <td>
                   {/* <Link to={`/FormEdit/${usuario.id}`} className = "btn btn-primary" >Editar</Link> */}

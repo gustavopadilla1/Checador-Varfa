@@ -8,7 +8,6 @@ import SendIcon from '@mui/icons-material/Send';
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { Link } from 'react-router-dom';
 const MySwal = withReactContent(Swal);
 
 
@@ -35,13 +34,15 @@ function TEAMDIRECCIÓN({ user }) {
   const [ubicacion, ] = useState("");
   const [,setequipotrabajo] = useState("")
 
+  const [comentarioMonitoreo , setcomentarioMonitoreo] = useState("")
+  const [laborandoMonitoreo , setLaborandoMonitoreo] = useState("")
   const [entradahora, setentradahora] = useState("");
   const [salidahora, setsalidahora] = useState("");
 
   //concatanacion
   const [final] =useState(entradahora , entrada );
-  const [final2] =useState(salida , salidahora);  
-
+  const [final2] =useState(salida , salidahora, laborandoMonitoreo, comentarioMonitoreo);  
+ 
   
 /// modal
   const [open, setOpen] = React.useState(false);
@@ -95,7 +96,12 @@ function TEAMDIRECCIÓN({ user }) {
   const Add = async (e) =>{
     e.preventDefault();        
     await addDoc (CHECADORCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
-    await addDoc (MONITOREOCollection, {['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora, laborando:laborando, comentario:comentario, ubicacion:ubicacion})
+    await addDoc (MONITOREOCollection, {[
+      'CORREO ELECTRONICO']:user['CORREO ELECTRONICO'], ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], 
+      ['AREA FUNCIONAL']:user['AREA FUNCIONAL'],['EQUIPO DE TRABAJO']:user['EQUIPO DE TRABAJO'] , 
+      laborandoMonitoreo:laborandoMonitoreo,
+      entrada:entrada , salida:salida, entradahora:entradahora , salidahora:salidahora,
+      comentarioMonitoreo:comentarioMonitoreo, ubicacion:ubicacion})
     console.log(e);  
 
     const data ={
@@ -138,6 +144,17 @@ function TEAMDIRECCIÓN({ user }) {
 
   // funcion de guardar campo entrada por fecha y hora
   const Entrada = async () =>{
+        
+    if (laborando==="Home Office"){
+      setLaborandoMonitoreo("Home Office")
+    }
+    if (laborando==="Oficina"){
+      setLaborandoMonitoreo("Oficina")
+    } if (laborando==="De Visita con un Cliente") {
+      setLaborandoMonitoreo("De Visita con un Cliente")
+    }
+    setcomentarioMonitoreo(comentario)
+
     let o = new Date();
     setentradahora(
       o =  
@@ -190,6 +207,7 @@ setEntrada(
   d =  
   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
 )
+
  
 // setOcultarBoton(true);      
       return  final ;  
@@ -201,7 +219,7 @@ setEntrada(
 
 
   // funcion de guardar campo Salida por fecha y hora
-  const Salida = async () =>{
+  const Salida = async () =>{   
     let o = new Date();
     setsalidahora(
       o =  
@@ -254,15 +272,11 @@ setEntrada(
    dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
  )  
  
-
 //  setOcultarBoton(false);
 
- return  final2;     
-   }
+ return final2;
 
-
-
-
+}
 
 
 
@@ -352,17 +366,17 @@ setEntrada(
     <label className="col-sm-1 col-form-label">Laborando</label>
     <div className="col-sm-7">
     <select 
-          value={laborando}  
+          value={laborando}
           onChange ={(e)=> setLaborando(e.target.value)} 
           className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" 
           required
           >
-						
             <option></option>            
 						<option>Home Office</option>
 						<option>Oficina</option>
 						<option>De Visita con un Cliente</option>					
-						</select>
+
+			</select>
                
     </div>
     </div>
@@ -395,7 +409,7 @@ setEntrada(
   </button>  
   </div>
     
-     <button 
+     <button
      id='btnSalida'
      Style="padding:15px; padding-left:35px;"  
      onClick={Salida}  
@@ -413,11 +427,11 @@ setEntrada(
 
 
 {/* contenido del monitoreo */}
-      <div className='container ' > 
-        <table className="table">
+      <div className='' > 
+        <table className="container">
 
           <thead>
-            <tr Style="font-family: 'Heebo', sans-serif; Font-size: 15px;" >
+            <tr Style="font-family: 'Heebo', sans-serif; Font-size: 12px;" >
               <th  scope="col">USUARIO</th>
               <th scope="col">EQUIPO</th>
               <th scope="col">LABORANDO</th>
@@ -427,56 +441,65 @@ setEntrada(
 
             </tr>
           </thead>
-
+<br />
 
 
           {
             colaboladores
               .map((colabolador) => {
                 
-                if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM DIRECCIÓN') {
+                if (colabolador['EQUIPO DE TRABAJO'] === 'TEAM DIRECCION') {
                   return (
                     
                     <tbody key={colabolador.id}>
-                      <tr  >       
+                      <tr  >    
+                        <div className='h-25'>
                         <td >
-                          
-                          <div >
-                              <img src={colabolador.foto ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} className="rounded-circle" style={{width: 45}} alt="Avatar" />
+                        <div  className="h-25">
+                            
+                              <img src={colabolador.foto ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} className="rounded-circle" style={{width: 40}} alt="Avatar" />
+                             
+                            
+                           <div style={{marginLeft:50, marginTop:-40}}>
+                               <a  Style="font-family: 'Anek Latin', sans-serif; Font-size: 16px; ">
+                                {colabolador['NOMBRE COMPLETO']} 
+                                </a>
 
-                               <a><b>{colabolador['NOMBRE COMPLETO']} </b></a>  <br/>
-                          
-                                <p style={{marginLeft:50 }} className='fst-italic lh-1'>
+                            <br />
+                                <p className='fst-italic lh-1' Style="Font-size: 13px;">
                                    {colabolador['CORREO ELECTRONICO']}
-                                </p>                          
-                        
-                        </div>
+                                </p>    
+
+                                </div>                      
+                            </div>
                         </td>
+                        </div>
                         <td 
-                            Style="font-family: 'Anek Latin', sans-serif; Font-size: 16px;" > 
+                            Style="font-family: 'Anek Latin', sans-serif; Font-size: 13px;" > 
                             {colabolador['EQUIPO DE TRABAJO']} 
                         </td>
-
+                        
 
 
 
                         {
-                          Monitoreo
-                            // .slice(0,2)                      
+                          Monitoreo                      
                             .map((monitoreo) => {
                               if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
                               
-                                        
+                                if(!monitoreo.laborandoMonitoreo ==""){
                                         return (
-                                        <div>
+                                     
                                           <td 
-                                              Style="font-family: 'Heebo', sans-serif; Font-size: 16px;"
-                                              className='text-primary'><b>
-                                                {monitoreo.laborando} 
-                                                </b>
+                                              Style="font-family: 'Heebo', sans-serif; Font-size: 13px;"
+                                              className='text-primary'>
+                                                 <b>
+                                                {monitoreo.laborandoMonitoreo } 
+                                                </b>                                                
                                           </td>
-                                        </div>
-                                        )
+                                        
+                                        ) 
+                                 }  
                               }
                             }
                             )
@@ -494,10 +517,10 @@ setEntrada(
 
                                 if (!monitoreo.entradahora=="") {
                                   return(
-                                    <td>
-                                      <div>
-                                    <a>{monitoreo.entradahora} </a>
-                                    </div>
+                                    <td  className='text-success'>
+                                    
+                                    <a Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">
+                                      {monitoreo.entradahora} </a>                                    
                                     </td>
                                     
                                   )
@@ -520,9 +543,10 @@ setEntrada(
                                     
                                     <td>
                                       
-                                    <br ></br><br ></br>
                                     
-                                  <p>                                                       
+                                    
+                                  <p Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">                                                       
+                                  <br />
                                   {monitoreo.salidahora}                                                                        
                                </p>  
                                
@@ -540,19 +564,18 @@ setEntrada(
                           Monitoreo
                             .map((monitoreo) => {
                               if (colabolador['NOMBRE COMPLETO'] === monitoreo['NOMBRE COMPLETO']) {
-                                
+                                if(!monitoreo.comentarioMonitoreo ==""){
                                 return (      
-                                  <div>                                                              
+                                                                                             
                                   <td 
-                                      Style="font-family: 'Heebo', sans-serif; Font-size: 16px;"><b>
+                                      Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">
                                        
-                                        {monitoreo.comentario} 
-                                      
-                                        </b>
-                                        
+                                        {monitoreo.comentarioMonitoreo} 
+
                                   </td>                                  
-                                  </div>
+                                
                                 )
+                                }
                               }
                             }
                             )
@@ -568,12 +591,6 @@ setEntrada(
               )
           }
         </table>
-
-
-        
-  
-
-
 
       </div>
    </div>

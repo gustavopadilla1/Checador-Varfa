@@ -10,7 +10,6 @@ import TEAMDIRECCIÓN from '../TEAMDIRECCIÓN/TEAMDIRECCIÓN';
 import DirectorGeneral from '../DirectorGeneral/DirectorGeneral';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ChecarSupervisor from '../ChecarSupervisor';
 
 function HomeGerente({ user }) {
     const [colaboladores, setcolaboladores] = useState([]);
@@ -54,7 +53,9 @@ function HomeGerente({ user }) {
                 {user['EQUIPO DE TRABAJO'] === 'TEAM FOREIGN' ? <TEAMFOREING user={user} />  : <div></div>}
                 {user['EQUIPO DE TRABAJO'] === 'TEAM ADMIN' ? <TEAMADMIN user={user} /> : <div></div>}
                 {user['EQUIPO DE TRABAJO'] === 'TEAM FISCAL' ? <TEAMFISCAL user={user} /> : <div></div>}
-                {user['EQUIPO DE TRABAJO'] === 'TEAM DIRECCIÓN' ? <TEAMDIRECCIÓN user={user} /> : <div></div>}
+                {user['EQUIPO DE TRABAJO'] === 'TEAM DIRECCION' ? <TEAMDIRECCIÓN user={user} /> : <div></div>}
+
+
 
                 {user['AREA FUNCIONAL'] === 'Dirección General' ? <DirectorGeneral user={user} /> : <div></div>}
 
