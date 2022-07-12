@@ -5,6 +5,7 @@ import { db } from '../../Config/firestore';
 import { Box, Button, Modal } from '@mui/material';
 import axios from 'axios'
 import SendIcon from '@mui/icons-material/Send';
+// import ReactPaginate from 'react-pagination';
 
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
@@ -16,6 +17,12 @@ const MySwal = withReactContent(Swal);
 const TableAdmin = ({ user }) => {
   const [Checador, setChecador] = useState([]);
   const [search, setSearch] = useState("");
+  const [order, setorder] = useState("ASC");
+  
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
 
   const ChecadorCollection = collection(db, "Checador")
 
@@ -52,16 +59,18 @@ const TableAdmin = ({ user }) => {
 
 
 
+
   const getChecador = async () => {
     const data = await getDocs(ChecadorCollection)
     // console.log(data.docs);
     setChecador(
-      data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      data.docs.map((doc) => ({ ...doc.data(), id: doc.id })).sort()
     )
     console.log(Checador)
 
-
   }
+
+
 
   const deleteUser = async (id) => {
     MySwal.fire({
@@ -280,10 +289,42 @@ setSalida(
 return  final2;     
  }
 
-const orden = ()=>{
-alert("Hola")
+const sorting = (col) =>{
+  if (order=== 'ASC') {
+      const sorted = [...Checador].sort((a,b)=>
+      a[col].toLowerCase() > b[col].toLowerCase() ? 1: -1 
+      )
+    setChecador(sorted);
+    setorder("DSC")
+  }
+  if (order=== 'DSC') {
+    const sorted = [...Checador].sort((a,b)=>
+    a[col].toLowerCase() < b[col].toLowerCase() ? 1: -1 
+    )
+  setChecador(sorted);
+  setorder("ASC")
+}
+  
 }
 
+// //Padinacion
+
+//   useEffect(() => {
+//     // Fetch items from another resources.
+//     const endOffset = itemOffset + itemsPerPage;
+//     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+//     setCurrentItems(Checador.slice(itemOffset, endOffset));
+//     setPageCount(Math.ceil(Checador.length / itemsPerPage));
+//   }, [itemOffset, itemsPerPage, Checador]);
+
+//   // Invoke when user click to request another page.
+//   const handlePageClick = (event) => {
+//     const newOffset = (event.selected * itemsPerPage) % Checador.length;
+//     console.log(
+//       `User requested page number ${event.selected}, which is offset ${newOffset}`
+//     );
+//     setItemOffset(newOffset);
+//   };
 
   return (
     <div>
@@ -300,7 +341,7 @@ alert("Hola")
         />
 
 
-        <a href='https://docs.google.com/spreadsheets/d/18lnS2_WrJV7vWJu5PcRqRmpeUXihqi5R3Jh2tO-XfVw/edit#gid=0'><button type="button" className="btn btn-success">Google Sheets</button></a>
+        {/* <a href='https://docs.google.com/spreadsheets/d/18lnS2_WrJV7vWJu5PcRqRmpeUXihqi5R3Jh2tO-XfVw/edit#gid=0'><button type="button" className="btn btn-success">Google Sheets</button></a> */}
 
       </div>
       <br />
@@ -463,24 +504,25 @@ alert("Hola")
 
       {/* <Link to={`/CreateUser`} className = "btn btn-primary" >Agregar </Link> */}
       <br />
-      {/* <table className="table table-bordered border-primary" id='Reporte'> */}
       <table className="table table-bordered border-primary" id='Reporte'>
         <thead>
           
           <tr  Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">
-            <th scope="col" onClick={orden}>NOMBRE</th>
-            <th scope="col">CORREO ELECTRONICO</th>
-            <th scope="col">EQUIPO</th>
-            <th scope="col">AREA </th>
-            <th scope="col">LABORANDO </th>
-            <th scope="col" className='table-primary'>ENTRADA</th>
-            <th scope="col" className=' table-warning ' >SALIDA</th>
-            <th scope="col" className='table-success'>COMENTARIO</th>
+            <th scope="col" onClick={()=>sorting(['NOMBRE COMPLETO'])}> NOMBRE </th>
+            <th scope="col" onClick={()=>sorting(['CORREO ELECTRONICO'])}>CORREO ELECTRONICO</th>
+            <th scope="col" onClick={()=>sorting(['EQUIPO DE TRABAJO'])}>EQUIPO</th>
+            <th scope="col" onClick={()=>sorting(['AREA FUNCIONAL'])}>AREA </th>
+            <th scope="col" onClick={()=>sorting(['laborando'])}>LABORANDO </th>
+            <th scope="col" className='table-primary' onClick={()=>sorting(['entrada'])}>ENTRADA</th>
+            <th scope="col" className=' table-warning' onClick={()=>sorting(['salida'])} >SALIDA</th>
+            <th scope="col" className='table-success' onClick={()=>sorting(['comentario'])}>COMENTARIO</th>
             <th scope="col">ACCION</th>
           </tr>
         </thead>
         <tbody>
+          
           {Checador        
+          
           .filter(colabolador => {
             if (search === "") {
               return colabolador;
@@ -488,9 +530,12 @@ alert("Hola")
               .toLowerCase().includes(search.toLowerCase())) {
               return colabolador;
             }
-          })
+          }) 
+          
+          
             .map((colabolador) => (
-              <tr  key={colabolador.id}>
+              
+              <tr   key={colabolador.id}>
 
                 <td Style="font-family: 'Anek Latin', sans-serif; Font-size: 14px;"> {colabolador['NOMBRE COMPLETO'] }</td>
                 <td Style="font-family: 'Anek Latin', sans-serif; Font-size: 13px;"> {colabolador['CORREO ELECTRONICO']}</td>
@@ -508,8 +553,20 @@ alert("Hola")
                   <button onClick={() => (deleteUser(colabolador.id))} className="btn btn-danger" ><i className="fas fa-trash-alt" /></button>
                 </td>
               </tr>
-            ))}
-
+              
+            ))
+            
+            }
+        {/* <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}     
+      /> */}
+      
         </tbody>
       </table>
     </div>

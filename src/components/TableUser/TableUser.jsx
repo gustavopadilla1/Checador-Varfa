@@ -51,6 +51,8 @@ const TableUser = ({user}) => {
     
     console.log(e);  
 
+
+
     const data ={
       ['NOMBRE COMPLETO']: user['NOMBRE COMPLETO'], 
       ['CORREO ELECTRONICO']:user['CORREO ELECTRONICO'],       
@@ -62,7 +64,7 @@ const TableUser = ({user}) => {
       comentario:comentario
     }
     
-    axios.post('https://sheet.best/api/sheets/57301919-954a-4676-9da3-52041bfe4e1c',data).then((res)=>{
+    axios.post('https://script.google.com/macros/s/AKfycbyAUirTmvHJZc_w4LHeIMp1d90PGB6mng1oSkEf-D9-ulV5ws3i58ftzBN2jXQNPzfL/exec',data).then((res)=>{
     console.log(res);
  
     setUsuarios('');
@@ -223,6 +225,9 @@ setEntrada(
 
 
 
+   
+
+
 
   return (
     <div>
@@ -230,8 +235,9 @@ setEntrada(
       <br></br>
 
 
-     <form  className="was-validated"
-      onSubmit={Add}
+     <form  className="was-validated" 
+      
+      onSubmit={Add} 
       >
 
   <br/>
@@ -386,7 +392,11 @@ setEntrada(
 </form>
 
     </div>
-  )
+
+ )
+
 }
+
+
 
 export default TableUser
