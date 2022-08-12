@@ -128,13 +128,14 @@ function TEAMFISCAL({ user }) {
     setComentario ('');      
     
   })
-  
+  setOpen();
+
     MySwal.fire({
       position: 'top-end',
       icon: 'success',
       title: 'Bienvenido Registro hecho con exito !!!',
       showConfirmButton: false,
-      timer: 3000
+      timer: 2500
 
 		  })          
 
@@ -142,141 +143,153 @@ function TEAMFISCAL({ user }) {
   }
  
 
-  // funcion de guardar campo entrada por fecha y hora
-  const Entrada = async () =>{
-        
-    if (laborando==="Home Office"){
-      setLaborandoMonitoreo("Home Office")
-    }
-    if (laborando==="Oficina"){
-      setLaborandoMonitoreo("Oficina")
-    } if (laborando==="De Visita con un Cliente") {
-      setLaborandoMonitoreo("De Visita con un Cliente")
-    }
-    setcomentarioMonitoreo(comentario)
+// funcion de guardar campo entrada por fecha y hora
+const Entrada = async () =>{
 
-    let o = new Date();
-    setentradahora(
-      o =  
-      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()  
-    ) 
-
-    let d = new Date();
-    
-    var dia=new Array(7);
-    dia[0]="Domingo";
-    dia[1]="Lunes";
-    dia[2]="Martes";
-    dia[3]="Miercoles";
-    dia[4]="Jueves";
-    dia[5]="Viernes";
-    dia[6]="Sabado";
-
-    var m2 = d.getMonth() + 1;
-    var mesok = (m2 < 10) ? '0' + m2 : m2;
-    mesok=new Array(12);
-    mesok[0]="Enero";
-    mesok[1]="Febrero";
-    mesok[2]="Marzo";
-    mesok[3]="Abril";
-    mesok[4]="Mayo";
-    mesok[5]="Junio";
-    mesok[6]="Julio";
-    mesok[7]="Agosto";
-    mesok[8]="Septiembre";
-    mesok[9]="Octubre";
-    mesok[10]="Noviembre";
-    mesok[11]="Diciembre";
-       
-      console.log(
-      
-      dia[d.getDay()],
-      d.getDate(),    
-      mesok[d.getMonth()] ,
-      d.getFullYear() ,
-"- "+
-      d.getHours(),    
-': ' +d.getMinutes(),
-': ' +d.getSeconds()
-
-);
-
-
-
-setEntrada(
-  d =  
-  dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
-)
-
- 
-// setOcultarBoton(true);      
-      return  final ;  
+  if (laborando==="Home Office"){
+    setLaborandoMonitoreo("Home Office")
+  }
+  if (laborando==="Oficina"){
+    setLaborandoMonitoreo("Oficina")
+  } if (laborando==="De Visita con un Cliente") {
+    setLaborandoMonitoreo("De Visita con un Cliente")
   }
 
+  setcomentarioMonitoreo(comentario)
+
+  let o = new Date();
+  setentradahora(
+    o =  
+    o.getHours() +':' +o.getMinutes()+ ':' +o.getSeconds()  
+  ) 
+
+  let d = new Date();
+  
+  // var dia=new Array(7);
+  // dia[0]="Domingo";
+  // dia[1]="Lunes";
+  // dia[2]="Martes";
+  // dia[3]="Miercoles";
+  // dia[4]="Jueves";
+  // dia[5]="Viernes";
+  // dia[6]="Sabado";
+
+  var m2 = d.getMonth() + 1;
+  var mesok = (m2 < 10) ? '0' + m2 : m2;
+  mesok=new Array(12);
+  mesok[0]="01";
+  mesok[1]="02";
+  mesok[2]="03";
+  mesok[3]="04";
+  mesok[4]="05";
+  mesok[5]="06";
+  mesok[6]="07";
+  mesok[7]="08";
+  mesok[8]="09";
+  mesok[9]="10";
+  mesok[10]="11";
+  mesok[11]="12";
 
 
-
-
-
-  // funcion de guardar campo Salida por fecha y hora
-  const Salida = async () =>{   
-    let o = new Date();
-    setsalidahora(
-      o =  
-      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()    
-    ) 
-
-    let d = new Date();
      
-     var dia=new Array(7);
-     dia[0]="Domingo";
-     dia[1]="Lunes";
-     dia[2]="Martes";
-     dia[3]="Miercoles";
-     dia[4]="Jueves";
-     dia[5]="Viernes";
-     dia[6]="Sabado";
- 
-     var m2 = d.getMonth() + 1;
-     var mesok = (m2 < 10) ? '0' + m2 : m2;
-    mesok=new Array(12);
-     mesok[0]="Enero";
-     mesok[1]="Febrero";
-     mesok[2]="Marzo";
-     mesok[3]="Abril";
-     mesok[4]="Mayo";
-     mesok[5]="Junio";
-     mesok[6]="Julio";
-     mesok[7]="Agosto";
-     mesok[8]="Septiembre";
-     mesok[9]="Octubre";
-     mesok[10]="Noviembre";
-     mesok[11]="Diciembre";
-        
-       console.log(
-       
-       dia[d.getDay()],
-       d.getDate(),    
-       mesok[d.getMonth()] ,
-       d.getFullYear() ,
- "- "+
-       d.getHours(),    
- ': ' +d.getMinutes(),
- ': ' +d.getSeconds()
- 
- );
- 
- 
- setSalida(
-   d =  
-   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
- )  
- 
-//  setOcultarBoton(false);
+//       console.log(
+    
+//       dia[d.getDay()],
+//       d.getDate(),    
+//       mesok[d.getMonth()] ,
+//       d.getFullYear() ,
+// "- "+
+//       d.getHours(),    
+// ': ' +d.getMinutes(),
+// ': ' +d.getSeconds()
 
- return final2;
+// );
 
+
+  var min = d.getMinutes();
+if (min < 10) {
+var minF = "0" + d.getMinutes()
 }
+else{
+var minF = d.getMinutes()
+}
+
+alert(d);
+
+setEntrada(
+d =  
+d.getDate()+"/" + mesok[d.getMonth()]+ "/" + d.getFullYear() +" " +d.getHours() +':' +minF+ ':' +d.getSeconds()
+)
+
+// setOcultarBoton(true);      
+    return  final ;  
+}
+
+// funcion de guardar campo Salida por fecha y hora
+const Salida = async () =>{
+  let o = new Date();
+  setsalidahora(
+    o =  
+    o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()    
+  ) 
+
+  let d = new Date();
+   
+//      var dia=new Array(7);
+//      dia[0]="Domingo";
+//      dia[1]="Lunes";
+//      dia[2]="Martes";
+//      dia[3]="Miercoles";
+//      dia[4]="Jueves";
+//      dia[5]="Viernes";
+//      dia[6]="Sabado";
+
+var m2 = d.getMonth() + 1;
+var mesok = (m2 < 10) ? '0' + m2 : m2;
+mesok=new Array(12);
+mesok[0]="01";
+mesok[1]="02";
+mesok[2]="03";
+mesok[3]="04";
+mesok[4]="05";
+mesok[5]="06";
+mesok[6]="07";
+mesok[7]="08";
+mesok[8]="09";
+mesok[9]="10";
+mesok[10]="11";
+mesok[11]="12";
+      
+//        console.log(
+     
+//        dia[d.getDay()],
+//        d.getDate(),    
+//        mesok[d.getMonth()] ,
+//        d.getFullYear() ,
+//  "- "+
+//        d.getHours(),    
+//  ': ' +d.getMinutes(),
+//  ': ' +d.getSeconds()
+
+//  );
+
+alert(d);
+
+var min = d.getMinutes();
+if (min < 10) {
+ var minF = "0" + d.getMinutes()
+}
+else{
+ var minF = d.getMinutes()
+}
+
+setSalida(
+ d =  
+ d.getDate()+"/" + mesok[d.getMonth()]+ "/" + d.getFullYear() +" " +d.getHours() +':' +minF+ ':' +d.getSeconds()
+)  
+//  setOcultarBoton(false);
+return  final2;     
+ }
 
 
 
@@ -335,7 +348,7 @@ setEntrada(
     </div>
     
     <div className="row mb-1 justify-content-center"   >
-    <label className="col-sm-1 col-form-label">Area Funcional</label>
+    <label className="col-sm-1 col-form-label">Area: </label>
     <div className="col-sm-7">
 
 						<input  value={user['AREA FUNCIONAL']}  
@@ -348,7 +361,7 @@ setEntrada(
     </div>
 
     <div className="row mb-1 justify-content-center"   >
-    <label className="col-sm-1 col-form-label">Equipo de Trabajo </label>
+    <label className="col-sm-1 col-form-label">Equipo: </label>
     <div className="col-sm-7">
 
 						<input  value={user['EQUIPO DE TRABAJO']}  
@@ -363,7 +376,7 @@ setEntrada(
     
     
     <div className="row mb-1 justify-content-center"  >
-    <label className="col-sm-1 col-form-label">Laborando</label>
+    <label className="col-sm-1 col-form-label">Laborando:</label>
     <div className="col-sm-7">
     <select 
           value={laborando}
@@ -398,25 +411,26 @@ setEntrada(
   <div>
   <button 
     id='btnEntrada'
-    Style="padding:15px; padding-left:35px;"  
+    Style="padding:15px;"  
     onClick={Entrada}  
     value={ final}  
     type='submit'  
     className='btn btn-success '  
-    
   >   
-    Entrar
+    <i className="fa-solid fa-arrow-right" />&nbsp;
+    Entrada
   </button>  
   </div>
     
      <button
      id='btnSalida'
-     Style="padding:15px; padding-left:35px;"  
+     Style="padding:15px;"  
      onClick={Salida}  
      value={final2} 
      className='btn btn-success '
       >       
-     salida
+        <i className="fa-solid fa-arrow-left" />&nbsp;
+     Salida
      </button>  
 
   </div>
@@ -480,7 +494,7 @@ setEntrada(
                         </td>
                         
 
-
+<td>
 
                         {
                           Monitoreo                      
@@ -490,13 +504,13 @@ setEntrada(
                                 if(!monitoreo.laborandoMonitoreo ==""){
                                         return (
                                      
-                                          <td 
+                                          <div 
                                               Style="font-family: 'Heebo', sans-serif; Font-size: 13px;"
                                               className='text-primary'>
                                                  <b>
                                                 {monitoreo.laborandoMonitoreo } 
                                                 </b>                                                
-                                          </td>
+                                          </div>
                                         
                                         ) 
                                  }  
@@ -504,11 +518,9 @@ setEntrada(
                             }
                             )
                         }
+</td>
 
-
-
-
-
+<td>
                         {
                           Monitoreo
                             // .slice(0,2)                      
@@ -517,11 +529,11 @@ setEntrada(
 
                                 if (!monitoreo.entradahora=="") {
                                   return(
-                                    <td  className='text-success'>
+                                    <div  className='text-success'>
                                     
                                     <a Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">
                                       {monitoreo.entradahora} </a>                                    
-                                    </td>
+                                    </div>
                                     
                                   )
                                 }                               
@@ -531,7 +543,8 @@ setEntrada(
                             )
                         }
 
-
+</td>
+<td>
 {
                           Monitoreo
                             // .slice(0,2)                      
@@ -541,16 +554,10 @@ setEntrada(
                                   if(!monitoreo.salidahora ==""){
                                   return (
                                     
-                                    <td>
-                                      
-                                    
-                                    
                                   <p Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">                                                       
                                   <br />
                                   {monitoreo.salidahora}                                                                        
-                               </p>  
-                               
-                               </td> 
+                               </p>
                                   )
                                 }
                                 
@@ -558,8 +565,8 @@ setEntrada(
                             }
                             )
                         }
-
-
+</td>
+<td>
                         {
                           Monitoreo
                             .map((monitoreo) => {
@@ -567,12 +574,12 @@ setEntrada(
                                 if(!monitoreo.comentarioMonitoreo ==""){
                                 return (      
                                                                                              
-                                  <td 
+                                  <div 
                                       Style="font-family: 'Heebo', sans-serif; Font-size: 13px;">
                                        
                                         {monitoreo.comentarioMonitoreo} 
 
-                                  </td>                                  
+                                  </div>                                  
                                 
                                 )
                                 }
@@ -580,7 +587,7 @@ setEntrada(
                             }
                             )
                         }
-
+</td>
                       </tr>
 
                     </tbody>

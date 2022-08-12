@@ -107,60 +107,70 @@ const TableUser = ({user}) => {
     let o = new Date();
     setentradahora(
       o =  
-      o.getHours() +' : ' +o.getMinutes()+ ' : ' +o.getSeconds()  
+      o.getHours() +':' +o.getMinutes()+ ':' +o.getSeconds()  
     ) 
 
     let d = new Date();
     
-    var dia=new Array(7);
-    dia[0]="Domingo";
-    dia[1]="Lunes";
-    dia[2]="Martes";
-    dia[3]="Miercoles";
-    dia[4]="Jueves";
-    dia[5]="Viernes";
-    dia[6]="Sabado";
+    // var dia=new Array(7);
+    // dia[0]="Domingo";
+    // dia[1]="Lunes";
+    // dia[2]="Martes";
+    // dia[3]="Miercoles";
+    // dia[4]="Jueves";
+    // dia[5]="Viernes";
+    // dia[6]="Sabado";
 
     var m2 = d.getMonth() + 1;
     var mesok = (m2 < 10) ? '0' + m2 : m2;
     mesok=new Array(12);
-    mesok[0]="Enero";
-    mesok[1]="Febrero";
-    mesok[2]="Marzo";
-    mesok[3]="Abril";
-    mesok[4]="Mayo";
-    mesok[5]="Junio";
-    mesok[6]="Julio";
-    mesok[7]="Agosto";
-    mesok[8]="Septiembre";
-    mesok[9]="Octubre";
-    mesok[10]="Noviembre";
-    mesok[11]="Diciembre";
+    mesok[0]="01";
+    mesok[1]="02";
+    mesok[2]="03";
+    mesok[3]="04";
+    mesok[4]="05";
+    mesok[5]="06";
+    mesok[6]="07";
+    mesok[7]="08";
+    mesok[8]="09";
+    mesok[9]="10";
+    mesok[10]="11";
+    mesok[11]="12";
+
+
        
-      console.log(
+//       console.log(
       
-      dia[d.getDay()],
-      d.getDate(),    
-      mesok[d.getMonth()] ,
-      d.getFullYear() ,
-"- "+
-      d.getHours(),    
-': ' +d.getMinutes(),
-': ' +d.getSeconds()
+//       dia[d.getDay()],
+//       d.getDate(),    
+//       mesok[d.getMonth()] ,
+//       d.getFullYear() ,
+// "- "+
+//       d.getHours(),    
+// ': ' +d.getMinutes(),
+// ': ' +d.getSeconds()
 
-);
+// );
 
 
+    var min = d.getMinutes();
+if (min < 10) {
+  var minF = "0" + d.getMinutes()
+}
+else{
+  var minF = d.getMinutes()
+}
+
+alert(d);
 
 setEntrada(
   d =  
-  dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
+  d.getDate()+"/" + mesok[d.getMonth()]+ "/" + d.getFullYear() +" " +d.getHours() +':' +minF+ ':' +d.getSeconds()
 )
  
 // setOcultarBoton(true);      
       return  final ;  
   }
-
 
 
   const Salida = async () =>{
@@ -172,60 +182,63 @@ setEntrada(
 
     let d = new Date();
      
-     var dia=new Array(7);
-     dia[0]="Domingo";
-     dia[1]="Lunes";
-     dia[2]="Martes";
-     dia[3]="Miercoles";
-     dia[4]="Jueves";
-     dia[5]="Viernes";
-     dia[6]="Sabado";
+//      var dia=new Array(7);
+//      dia[0]="Domingo";
+//      dia[1]="Lunes";
+//      dia[2]="Martes";
+//      dia[3]="Miercoles";
+//      dia[4]="Jueves";
+//      dia[5]="Viernes";
+//      dia[6]="Sabado";
  
-     var m2 = d.getMonth() + 1;
-     var mesok = (m2 < 10) ? '0' + m2 : m2;
-    mesok=new Array(12);
-     mesok[0]="Enero";
-     mesok[1]="Febrero";
-     mesok[2]="Marzo";
-     mesok[3]="Abril";
-     mesok[4]="Mayo";
-     mesok[5]="Junio";
-     mesok[6]="Julio";
-     mesok[7]="Agosto";
-     mesok[8]="Septiembre";
-     mesok[9]="Octubre";
-     mesok[10]="Noviembre";
-     mesok[11]="Diciembre";
+var m2 = d.getMonth() + 1;
+var mesok = (m2 < 10) ? '0' + m2 : m2;
+mesok=new Array(12);
+mesok[0]="01";
+mesok[1]="02";
+mesok[2]="03";
+mesok[3]="04";
+mesok[4]="05";
+mesok[5]="06";
+mesok[6]="07";
+mesok[7]="08";
+mesok[8]="09";
+mesok[9]="10";
+mesok[10]="11";
+mesok[11]="12";
         
-       console.log(
+//        console.log(
        
-       dia[d.getDay()],
-       d.getDate(),    
-       mesok[d.getMonth()] ,
-       d.getFullYear() ,
- "- "+
-       d.getHours(),    
- ': ' +d.getMinutes(),
- ': ' +d.getSeconds()
+//        dia[d.getDay()],
+//        d.getDate(),    
+//        mesok[d.getMonth()] ,
+//        d.getFullYear() ,
+//  "- "+
+//        d.getHours(),    
+//  ': ' +d.getMinutes(),
+//  ': ' +d.getSeconds()
  
- );
+//  );
  
  alert(d);
+
+ var min = d.getMinutes();
+ if (min < 10) {
+   var minF = "0" + d.getMinutes()
+ }
+ else{
+   var minF = d.getMinutes()
+ }
  
  setSalida(
    d =  
-   dia[d.getDay()] +" " +d.getDate()+" " + mesok[d.getMonth()]+ " " + d.getFullYear() + " - "+ " " +d.getHours() +' : ' +d.getMinutes()+ ' : ' +d.getSeconds()
+   d.getDate()+"/" + mesok[d.getMonth()]+ "/" + d.getFullYear() +" " +d.getHours() +':' +minF+ ':' +d.getSeconds()
  )  
  
-
 //  setOcultarBoton(false);
 
  return  final2;     
    }
-
-
-
-   
 
 
 
@@ -234,9 +247,7 @@ setEntrada(
       <Reloj/> 
       <br></br>
 
-
      <form  className="was-validated" 
-      
       onSubmit={Add} 
       >
 
@@ -274,7 +285,7 @@ setEntrada(
     </div>
     
     <div className="row mb-1 justify-content-center"   >
-    <label className="col-sm-1 col-form-label">Area Funcional</label>
+    <label className="col-sm-1 col-form-label">Area: </label>
     <div className="col-sm-7">
 
 						<input  value={user['AREA FUNCIONAL']}  
@@ -287,7 +298,7 @@ setEntrada(
     </div>
 
     <div className="row mb-1 justify-content-center"   >
-    <label className="col-sm-1 col-form-label">Equipo de Trabajo </label>
+    <label className="col-sm-1 col-form-label">Equipo: </label>
     <div className="col-sm-7">
 
 						<input  value={user['EQUIPO DE TRABAJO']}  
@@ -302,12 +313,12 @@ setEntrada(
     
     
     <div className="row mb-1 justify-content-center"  >
-    <label className="col-sm-1 col-form-label">Laborando</label>
+    <label className="col-sm-1 col-form-label">Laborando: </label>
     <div className="col-sm-7">
     <select 
           value={laborando}  
           onChange ={(e)=> setLaborando(e.target.value)} 
-          className="form-select form-select-lg mb-3 is-invalid" aria-label=".form-select-md example" 
+          className="form-select form-select-lg mb-3 " aria-label=".form-select-md example" 
           required
           >
 						
@@ -346,21 +357,23 @@ setEntrada(
     <div className='d-flex justify-content-around '>
 
 {/* {!ocultarBoton ? */}
-  <div>
+  <div>    
   <button 
     id='btnEntrada'
-    Style="padding:15px; padding-left:35px;"  
+    Style="padding:11px;"  
     onClick={Entrada}  
     value={ final}  
     type='submit'  
     className='btn btn-success '  
     
   >   
-    Entrar
+  <i className="fa-solid fa-arrow-right" />&nbsp;
+    Entrada
 
   {/* <button onClick={EntradaHORA} value={entradahora}></button>   */}
 
-  </button>  
+  </button>
+    
   </div>
     {/* :
 
@@ -377,20 +390,20 @@ setEntrada(
 
      <button 
      id='btnSalida'
-     Style="padding:15px; padding-left:35px;"  
+     Style="padding:11px;"  
      onClick={Salida}  
      value={final2} 
      className='btn btn-success '
       >       
-     salída
+        <i className="fa-solid fa-arrow-left" />&nbsp;
+     Salída
      </button>  
     
     {/* } */}
 
   </div>
 
-</form>
-
+     </form>
     </div>
 
  )

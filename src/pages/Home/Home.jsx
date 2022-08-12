@@ -27,8 +27,8 @@ function Home({user}) {
     <div>               
       <Appbar/>
 
-        <div Style="margin:20px;">
-      <h5>Bienvenido: {user['NOMBRE CORTO']}</h5> 
+        <div Style="margin:16px;">
+      <h5 >Bienvenido: {user['NOMBRE CORTO']}</h5> 
       {/* <h6 >{user.rol}</h6> */}
       {/* <h6> hola:  {user.usuario}</h6> */}
 

@@ -1,5 +1,4 @@
 import React from 'react'
-
 import TableUser from '../../components/TableUser';
 
 
@@ -11,7 +10,6 @@ function HomeUser({user}) {
 
     return (
       <div>
-        {/* <h4>Hola Usuario </h4>   */}
 
         {/* <BrowserRouter>
           <Routes>

@@ -74,13 +74,13 @@ function Reloj() {
     <div className="rounded border w-25 p-2  mw-100 mx-auto bg-light">
       
       <div className='d-flex justify-content-center'>
-          <i className="fa-solid fa-clock"></i>&nbsp;&nbsp;
+          <i className="fa-solid fa-clock" style={{padding:5}}></i> &nbsp;
           <Clock className='d-flex justify-content-center' />         
       </div>
 
       <div className='d-flex justify-content-center'>        
           <h5 className='d-flex justify-content-center' >
-            <i className="fa-regular fa-calendar-days"></i> &nbsp;&nbsp;
+            <i className="fa-regular fa-calendar-days" style={{padding:2}}></i> &nbsp;&nbsp;
             {`${dia[newDate.getDay()]} ${date} ${mesok[newDate.getMonth()]}   ${year}`} <br/>
           </h5>
       </div>
